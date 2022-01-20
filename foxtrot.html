@@ -109,6 +109,7 @@
 <body class="h-full overflow-hidden">
 
     <div class="h-full flex" x-data="{ isOpen: false }">
+
         <!-- Narrow sidebar -->
         <div class="hidden w-28 bg-slate-900 overflow-y-auto lg:block">
             <div class="w-full py-6 flex flex-col items-center">
@@ -175,7 +176,7 @@
                     </div>
 
                     <div class="flex-shrink-0 px-4 flex items-center">
-                        <img class="h-12 w-auto" src="https://raw.githubusercontent.com/sixt0o/foxtrot/main/fox.png"
+                        <img class="h-12 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
                             alt="Workflow">
                     </div>
                     <div class="mt-5 flex-1 h-0 px-2 overflow-y-auto">
@@ -291,12 +292,13 @@
 
         <!-- Content area -->
         <div class="flex-1 flex flex-col overflow-hidden">
+
+            <!-- Header/Search -->
             <header class="w-full">
                 <div class="relative z-20 flex-shrink-0 h-16 bg-gray-800 shadow-lg flex">
                     <button type="button" @click="isOpen = !isOpen"
                         class="lg:hidden border-r border-slate-700 px-4 text-gray-500 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                         <span class="sr-only">Open sidebar</span>
-                        <!-- Heroicon name: outline/menu-alt-2 -->
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -334,8 +336,9 @@
             <!-- Main content -->
             <div class="flex-1 flex items-stretch overflow-hidden relative">
 
+                <!-- Notification -->
                 <div id="notification"
-                    class="hiddens mx-auto absolute inset-x-10 top-16 z-50 -mt-4 px-4 py-6 pointer-events-none">
+                    class="hidden mx-auto absolute inset-x-10 top-16 z-50 -mt-4 px-4 py-6 pointer-events-none">
                     <div class="w-full flex flex-col items-start space-y-4 mb-8">
                         <div
                             class="max-w-sm w-full bg-yellow-400 shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
@@ -350,11 +353,11 @@
                                         </svg>
                                     </div>
                                     <div class="ml-3 w-0 flex-1">
-                                        <p class="text-lg font-bold text-slate-900">
+                                        <p id="notification_title" class="text-lg font-bold text-slate-900">
                                             Sweet!
                                         </p>
-                                        <p id="notification_text" class="mt-1 text-md text-yellow-800">
-                                            f0xtr0t loaded. 
+                                        <p id="notification_text" class="text-md text-yellow-800">
+                                            f0xtr0t loaded.
                                         </p>
                                     </div>
                                 </div>
@@ -388,12 +391,14 @@
                     <section aria-labelledby="primary-heading"
                         class="min-w-0 flex-1 h-full flex flex-col lg:order-last relative">
                         <div id="mapdiv" class="z-10"></div>
+
                         <!-- pwnagotchi modal -->
                         <div id="pwnagotchi"
                             class="mx-auto absolute inset-x-10 bottom-0 z-50 bg-white overflow-hidden shadow-lg h-44 hidden sm:w-4/5">
                             <iframe id="iframe_pwnagotchi" src="http://pwnagotchi.local:8080/"
                                 class="w-full h-52 -mt-10 border"></iframe>
                         </div>
+
                     </section>
                 </main>
 
@@ -454,6 +459,54 @@
                         </dl>
                     </div>
                 </aside>
+
+                <!-- Update modal -->
+                <div id="updateModal" class="hidden fixed z-40 inset-0 overflow-y-auto">
+                    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+                        <!-- This element is to trick the browser into centering the modal contents. -->
+                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen"
+                            aria-hidden="true">&#8203;</span>
+
+                        <div
+                            class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                            <div>
+                                <div
+                                    class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                                    </svg>
+                                </div>
+                                <div class="mt-3 text-center sm:mt-5">
+                                    <h3 id="updateModalTitle" class="text-lg leading-6 font-medium text-gray-900"
+                                        id="modal-title">
+                                        Update Found!
+                                    </h3>
+                                    <div class="mt-2">
+                                        <p id="updateModalText" class="text-sm text-gray-500">
+                                            Update now to get the latest version.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                                <button type="button"
+                                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-4 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
+                                    Update Now
+                                </button>
+                                <button type="button"
+                                    onclick="document.getElementById('updateModal').classList.add('hidden')"
+                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-4 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -715,6 +768,7 @@
                 }
                 if (count > lastPositionCount) {
                     document.getElementById("notification").classList.remove("hidden");
+                    document.getElementById("notification_title").innerHTML = "Sweet!";
                     document.getElementById("notification_text").innerHTML = `Found ${count - lastPositionCount} handshakes... nom nom`;
                     setTimeout(() => {
                         document.getElementById("notification").classList.add("hidden");
@@ -762,12 +816,42 @@
         });
 
         document.getElementById('navUpdate').addEventListener('click', () => {
-            loadJSON("/plugins/foxtrot/currentversion", (response) => {
-                console.log("current version: " + JSON.parse(response));
-                loadJSON("/plugins/foxtrot/checkupdate", (response) => {
-                    console.log("update version" + JSON.parse(response));
+            let currentVersion = null;
+            let onlineVersion = null;
+            document.getElementById("notification").classList.remove("hidden");
+            document.getElementById("notification_title").innerHTML = "Please wait...";
+            document.getElementById("notification_text").innerHTML = "Checking version...";
+
+            fetch('/plugins/foxtrot/currentversion')
+                .then(response => response.json())
+                .then(data => {
+                    currentVersion = data;
+                    document.getElementById("notification_text").innerHTML = `Current version: <span class="font-bold">${currentVersion}</span>, checking for updates...`;
+                    loadJSON("/plugins/foxtrot/checkupdate", (response) => {
+                        onlineVersion = JSON.parse(response);
+                        if (onlineVersion !== currentVersion) {
+                            document.getElementById("notification").classList.add("hidden");
+                            document.getElementById("updateModal").classList.remove("hidden")
+                        } else {
+                            document.getElementById("notification_text").innerHTML = `No updates found.`;
+                            setTimeout(() => {
+                                document.getElementById("notification").classList.add("hidden");
+                            }, 5000);
+                        }
+                    });
+
+                })
+                .catch((error) => {
+                    console.log('ERR: ' + JSON.stringify(error));
+                    document.getElementById("notification_title").innerHTML = "Oh Snap!";
+                    document.getElementById("notification_text").innerHTML = "Error checking for updates. Please check your internet connection and try again.";
+                    setTimeout(() => {
+                        document.getElementById("notification").classList.add("hidden");
+                    }, 5000);
                 });
-            });
+
+
+
         });
 
         document.getElementById('menuPwnagotchi').addEventListener('click', () => {
