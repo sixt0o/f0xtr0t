@@ -450,9 +450,19 @@
                         <dl class="mt-5 grid grid-cols-1 gap-5">
                             <div class="px-4 py-5 border-2 border-slate-900 border-b-slate-800  overflow-hidden sm:p-6">
                                 <dt class="text-md font-medium text-slate-600 truncate">
-                                    Last Updated
+                                    Last GPS/AP Update
                                 </dt>
                                 <dd id="coords_updated" class="mt-1 text-3xl font-semibold text-indigo-200">
+                                    --
+                                </dd>
+                            </div>
+                        </dl>
+                        <dl class="mt-5 grid grid-cols-1 gap-5">
+                            <div class="px-4 py-5 border-2 border-slate-900 border-b-slate-800  overflow-hidden sm:p-6">
+                                <dt class="text-md font-medium text-slate-600 truncate">
+                                    Version
+                                </dt>
+                                <dd id="version" class="mt-1 text-3xl font-semibold text-indigo-200">
                                     --
                                 </dd>
                             </div>
@@ -790,6 +800,10 @@
         loadJSON("/plugins/foxtrot/hostname", function (response) {
             let hostname = JSON.parse(response);
             document.getElementById('iframe_pwnagotchi').src = `http://${hostname}.local:8080`;
+        });
+
+        loadJSON("/plugins/foxtrot/currentversion", (response) => {
+            document.getElementById("version").innerHTML = JSON.parse(response);
         });
 
         setInterval(() => {
