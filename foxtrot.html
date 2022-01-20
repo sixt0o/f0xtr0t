@@ -493,7 +493,7 @@
                                 </div>
                             </div>
                             <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-                                <button type="button"
+                                <button type="button" id="buttonExecuteUpdate"
                                     class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-4 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm">
                                     Update Now
                                 </button>
@@ -850,9 +850,22 @@
                     }, 5000);
                 });
 
-
-
         });
+
+        document.getElementById("buttonExecuteUpdate").addEventListener('click', () => {
+            document.getElementById("updateModal").classList.add("hidden");
+            document.getElementById("notification").classList.remove("hidden");
+            document.getElementById("notification_title").innerHTML = "Please wait...";
+            document.getElementById("notification_text").innerHTML = "Downloading update...";
+
+            loadJSON("/plugins/foxtrot/executeupdate", (response) => {
+                document.getElementById("notification_title").innerHTML = "Sweet!";
+                document.getElementById("notification_text").innerHTML = "Update complete! Please restart you device for changes to take effect.";
+                setTimeout(() => {
+                    document.getElementById("notification").classList.add("hidden");
+                }, 5000);
+            });
+        })
 
         document.getElementById('menuPwnagotchi').addEventListener('click', () => {
             let pwngotchiDiv = document.getElementById('pwnagotchi');
