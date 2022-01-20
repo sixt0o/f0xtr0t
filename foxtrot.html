@@ -729,33 +729,22 @@
             document.getElementById("notification_title").innerHTML = "Please wait...";
             document.getElementById("notification_text").innerHTML = "Checking version...";
 
-            fetch('/plugins/foxtrot/currentversion')
-                .then(response => response.json())
-                .then(data => {
-                    currentVersion = data;
-                    document.getElementById("notification_text").innerHTML = `Current version: <span class="font-bold">${currentVersion}</span>, checking for updates...`;
-                    loadJSON("/plugins/foxtrot/checkupdate", (response) => {
-                        onlineVersion = JSON.parse(response);
-                        if (onlineVersion !== currentVersion) {
-                            document.getElementById("notification").classList.add("hidden");
-                            document.getElementById("updateModal").classList.remove("hidden")
-                        } else {
-                            document.getElementById("notification_text").innerHTML = `No updates found.`;
-                            setTimeout(() => {
-                                document.getElementById("notification").classList.add("hidden");
-                            }, 5000);
-                        }
-                    });
-
-                })
-                .catch((error) => {
-                    console.log('ERR: ' + JSON.stringify(error));
-                    document.getElementById("notification_title").innerHTML = "Oh Snap!";
-                    document.getElementById("notification_text").innerHTML = "Error checking for updates. Please check your internet connection and try again.";
-                    setTimeout(() => {
+            loadJSON('/plugins/foxtrot/currentversion', (versionResponse) => {
+                currentVersion = JSON.parse(versionResponse);
+                document.getElementById("notification_text").innerHTML = `Current version: <span class="font-bold">${currentVersion}</span>, checking for updates...`;
+                loadJSON("/plugins/foxtrot/checkupdate", (updateResponse) => {
+                    onlineVersion = JSON.parse(updateResponse);
+                    if (onlineVersion !== currentVersion) {
                         document.getElementById("notification").classList.add("hidden");
-                    }, 5000);
+                        document.getElementById("updateModal").classList.remove("hidden")
+                    } else {
+                        document.getElementById("notification_text").innerHTML = `No updates found.`;
+                        setTimeout(() => {
+                            document.getElementById("notification").classList.add("hidden");
+                        }, 5000);
+                    }
                 });
+            });
         }
 
         const drawPositions = () => {
