@@ -212,6 +212,16 @@
                                     </svg>
                                     <span>Pwnagotchi</span>
                                 </a>
+                                <a href="#" id="menuUpdate"
+                                    class="text-indigo-100 hover:bg-indigo-800 hover:text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                    <span>Update</span>
+                                </a>
                             </div>
                         </nav>
 
@@ -719,6 +729,42 @@
             }
         }
 
+        const checkForUpdate = () => {
+            let currentVersion = null;
+            let onlineVersion = null;
+            document.getElementById("notification").classList.remove("hidden");
+            document.getElementById("notification_title").innerHTML = "Please wait...";
+            document.getElementById("notification_text").innerHTML = "Checking version...";
+
+            fetch('/plugins/foxtrot/currentversion')
+                .then(response => response.json())
+                .then(data => {
+                    currentVersion = data;
+                    document.getElementById("notification_text").innerHTML = `Current version: <span class="font-bold">${currentVersion}</span>, checking for updates...`;
+                    loadJSON("/plugins/foxtrot/checkupdate", (response) => {
+                        onlineVersion = JSON.parse(response);
+                        if (onlineVersion !== currentVersion) {
+                            document.getElementById("notification").classList.add("hidden");
+                            document.getElementById("updateModal").classList.remove("hidden")
+                        } else {
+                            document.getElementById("notification_text").innerHTML = `No updates found.`;
+                            setTimeout(() => {
+                                document.getElementById("notification").classList.add("hidden");
+                            }, 5000);
+                        }
+                    });
+
+                })
+                .catch((error) => {
+                    console.log('ERR: ' + JSON.stringify(error));
+                    document.getElementById("notification_title").innerHTML = "Oh Snap!";
+                    document.getElementById("notification_text").innerHTML = "Error checking for updates. Please check your internet connection and try again.";
+                    setTimeout(() => {
+                        document.getElementById("notification").classList.add("hidden");
+                    }, 5000);
+                });
+        }
+
         const drawPositions = () => {
             count = 0;
             markerClusters.removeLayers(markers);
@@ -842,40 +888,11 @@
         });
 
         document.getElementById('navUpdate').addEventListener('click', () => {
-            let currentVersion = null;
-            let onlineVersion = null;
-            document.getElementById("notification").classList.remove("hidden");
-            document.getElementById("notification_title").innerHTML = "Please wait...";
-            document.getElementById("notification_text").innerHTML = "Checking version...";
+            checkForUpdate();
+        });
 
-            fetch('/plugins/foxtrot/currentversion')
-                .then(response => response.json())
-                .then(data => {
-                    currentVersion = data;
-                    document.getElementById("notification_text").innerHTML = `Current version: <span class="font-bold">${currentVersion}</span>, checking for updates...`;
-                    loadJSON("/plugins/foxtrot/checkupdate", (response) => {
-                        onlineVersion = JSON.parse(response);
-                        if (onlineVersion !== currentVersion) {
-                            document.getElementById("notification").classList.add("hidden");
-                            document.getElementById("updateModal").classList.remove("hidden")
-                        } else {
-                            document.getElementById("notification_text").innerHTML = `No updates found.`;
-                            setTimeout(() => {
-                                document.getElementById("notification").classList.add("hidden");
-                            }, 5000);
-                        }
-                    });
-
-                })
-                .catch((error) => {
-                    console.log('ERR: ' + JSON.stringify(error));
-                    document.getElementById("notification_title").innerHTML = "Oh Snap!";
-                    document.getElementById("notification_text").innerHTML = "Error checking for updates. Please check your internet connection and try again.";
-                    setTimeout(() => {
-                        document.getElementById("notification").classList.add("hidden");
-                    }, 5000);
-                });
-
+        document.getElementById('menuUpdate').addEventListener('click', () => {
+            checkForUpdate();
         });
 
         document.getElementById("buttonExecuteUpdate").addEventListener('click', () => {
