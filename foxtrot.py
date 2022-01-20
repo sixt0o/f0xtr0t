@@ -9,18 +9,8 @@ from functools import lru_cache
 from dateutil.parser import parse
 import gpsd
 import socket
+import requests
 
-'''
-    newgpsmap shows existing position data stored in your /handshakes/ directory
-    the plugin does the following:
-        - search for *.pcap files in your /handshakes/ dir
-            - for every found .pcap file it looks for a .geo.json or .gps.json or .paw-gps.json file with
-              latitude+longitude data inside and shows this position on the map
-            - if also an .cracked file with a plaintext password inside exist, it reads the content and shows the
-              position as green instead of red and the password inside the infopox of the position
-    special:
-        you can save the html-map as one file for offline use or host on your own webspace with "/plugins/foxtrot/offlinemap"
-'''
 class GPSD:
     def __init__(self, gpsdhost, gpsdport):
         gpsd.connect(host=gpsdhost, port=gpsdport)
@@ -51,6 +41,8 @@ class Foxtrot(plugins.Plugin):
 
     ALREADY_SENT = list()
     SKIP = list()
+    UPDATE_URL = "https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/version.txt"
+    CURRENT_VERSION = 0
 
     def __init__(self):
         self.ready = False
@@ -119,6 +111,29 @@ class Foxtrot(plugins.Plugin):
                     response_status = 200
                     response_mimetype = "application/json"
                     response_header_contenttype = 'application/json'
+                elif path.startswith('currentversion'):
+                    try:
+                        logging.info(f"[foxtrot] Current version: {self.CURRENT_VERSION}")
+                        response_data = json.dumps(self.CURRENT_VERSION)
+                        response_status = 200
+                        response_mimetype = "application/json"
+                        response_header_contenttype = 'application/json'
+                    except Exception as error:
+                        logging.error(f"[foxtrot] Error getting version: {error}")
+                        return
+                elif path.startswith('checkupdate'):
+                    logging.info(f"[foxtrot] Checking for new version: {self.UPDATE_URL}")
+                    try:
+                        response = requests.get(self.UPDATE_URL)
+                        data = response.text
+                        logging.info(f"[foxtrot] Update version: {data}")
+                        response_data = json.dumps(data)
+                        response_status = 200
+                        response_mimetype = "application/json"
+                        response_header_contenttype = 'application/json'
+                    except Exception as error:
+                        logging.error(f"[foxtrot] Error checking for update: {error}")
+                        return
                 elif path.startswith('all'):
                     # returns all positions
                     try:

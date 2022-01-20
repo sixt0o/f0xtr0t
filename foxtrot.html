@@ -113,7 +113,7 @@
         <div class="hidden w-28 bg-slate-900 overflow-y-auto lg:block">
             <div class="w-full py-6 flex flex-col items-center">
                 <div class="flex-shrink-0 flex items-center">
-                    <img class="h-20 w-auto" src="https://raw.githubusercontent.com/sixt0o/foxtrot/main/fox.png"
+                    <img class="h-20 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
                         alt="Foxtro">
                 </div>
                 <div class="flex-1 mt-6 w-full px-2 space-y-1">
@@ -125,6 +125,15 @@
                                 d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                         </svg>
                         <span class="mt-2">Fullscreen</span>
+                    </a>
+                    <a href="#" id="navUpdate"
+                        class="text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-white group-hover:text-white h-6 w-6"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span class="mt-2">Update</span>
                     </a>
                 </div>
             </div>
@@ -750,6 +759,15 @@
 
         document.getElementById('navFullScreen').addEventListener('click', () => {
             toggleFullscreen();
+        });
+
+        document.getElementById('navUpdate').addEventListener('click', () => {
+            loadJSON("/plugins/foxtrot/currentversion", (response) => {
+                console.log("current version: " + JSON.parse(response));
+                loadJSON("/plugins/foxtrot/checkupdate", (response) => {
+                    console.log("update version" + JSON.parse(response));
+                });
+            });
         });
 
         document.getElementById('menuPwnagotchi').addEventListener('click', () => {
