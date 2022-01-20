@@ -145,9 +145,19 @@ class Foxtrot(plugins.Plugin):
                         response = requests.get("https://api.github.com/repos/sixt0o/f0xtr0t/releases/latest")
                         logging.info(f"[foxtrot] Updating from zip ball: {response.json()['zipball_url']}")
 
+                        plugin_dir = '/usr/local/share/pwnagotchi/installed-plugins/'
                         with urlopen(response.json()['zipball_url']) as zipresp:
-                            with ZipFile(BytesIO(zipresp.read())) as zfile:
-                                zfile.extractall('/usr/local/share/pwnagotchi/installed-plugins')
+                            with ZipFile(BytesIO(zipresp.read())) as zip_file:
+                                for member in zip_file.namelist():
+                                    filename = os.path.basename(member)
+                                    # skip directories
+                                    if not filename:
+                                        continue
+                                    # copy file (taken from zipfile's extract)
+                                    source = zip_file.open(member)
+                                    target = open(os.path.join(plugin_dir, filename), "wb")
+                                    with source, target:
+                                        shutil.copyfileobj(source, target)
 
                         response_data = json.dumps("update complete")
                         response_status = 200
