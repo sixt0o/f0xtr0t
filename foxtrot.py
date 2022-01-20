@@ -10,6 +10,7 @@ from dateutil.parser import parse
 import gpsd
 import socket
 import requests
+import subprocess
 
 class GPSD:
     def __init__(self, gpsdhost, gpsdport):
@@ -133,6 +134,17 @@ class Foxtrot(plugins.Plugin):
                         response_header_contenttype = 'application/json'
                     except Exception as error:
                         logging.error(f"[foxtrot] Error checking for update: {error}")
+                        return
+                elif path.startswith('executeupdate'):
+                    logging.info("[foxtrot] Executing update...")
+                    try:
+                        subprocess.call(['sh', './update.sh'])
+                        response_data = json.dumps("update complete")
+                        response_status = 200
+                        response_mimetype = "application/json"
+                        response_header_contenttype = 'application/json'
+                    except Exception as error:
+                        logging.error(f"[foxtrot] Error executing update: {error}")
                         return
                 elif path.startswith('all'):
                     # returns all positions
