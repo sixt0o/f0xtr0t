@@ -11,6 +11,10 @@ import gpsd
 import socket
 import requests
 import subprocess
+import shutil
+from io import BytesIO
+from urllib.request import urlopen
+from zipfile import ZipFile
 
 class GPSD:
     def __init__(self, gpsdhost, gpsdport):
@@ -125,10 +129,9 @@ class Foxtrot(plugins.Plugin):
                 elif path.startswith('checkupdate'):
                     logging.info(f"[foxtrot] Checking for new version: {self.UPDATE_URL}")
                     try:
-                        response = requests.get(self.UPDATE_URL)
-                        data = response.text
-                        logging.info(f"[foxtrot] Update version: {data}")
-                        response_data = json.dumps(data)
+                        response = requests.get("https://api.github.com/repos/sixt0o/f0xtr0t/releases/latest")
+                        logging.info(f"[foxtrot] Update version: {response.json()['tag_name']}")
+                        response_data = json.dumps(response.json()['tag_name'])
                         response_status = 200
                         response_mimetype = "application/json"
                         response_header_contenttype = 'application/json'
@@ -138,7 +141,14 @@ class Foxtrot(plugins.Plugin):
                 elif path.startswith('executeupdate'):
                     logging.info("[foxtrot] Executing update...")
                     try:
-                        subprocess.call(['sh', './update.sh'])
+
+                        response = requests.get("https://api.github.com/repos/sixt0o/f0xtr0t/releases/latest")
+                        logging.info(f"[foxtrot] Updating from zip ball: {response.json()['zipball_url']}")
+
+                        with urlopen(response.json()['zipball_url']) as zipresp:
+                            with ZipFile(BytesIO(zipresp.read())) as zfile:
+                                zfile.extractall('/usr/local/share/pwnagotchi/installed-plugins')
+
                         response_data = json.dumps("update complete")
                         response_status = 200
                         response_mimetype = "application/json"
