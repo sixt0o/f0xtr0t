@@ -145,6 +145,15 @@
                         </svg>
                         <span class="mt-2">Update</span>
                     </a>
+                    <a href="#" id="navRefresh"
+                        class="text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-white group-hover:text-white h-6 w-6"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        <span class="mt-2">Refresh</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -189,50 +198,6 @@
                             alt="Workflow">
                     </div>
                     <div class="mt-5 flex-1 h-0 px-2 overflow-y-auto">
-                        <nav class="flex flex-col border-2 border-dashed border-slate-900 border-b-gray-800 pb-10">
-                            <div class="space-y-1">
-                                <a href="#" id="menuRefresh"
-                                    class="text-indigo-100 hover:bg-indigo-800 hover:text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                    </svg>
-                                    <span>Refresh</span>
-                                </a>
-                                <a href="#" id="menuFullScreen"
-                                    class="text-indigo-100 hover:bg-indigo-800 hover:text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium">
-                                    <svg class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                                    </svg>
-                                    <span>Fullscreen</span>
-                                </a>
-                                <a href="#" id="menuPwnagotchi"
-                                    class="text-indigo-100 hover:bg-indigo-800 hover:text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span>Pwnagotchi</span>
-                                </a>
-                                <a href="#" id="menuUpdate"
-                                    class="text-indigo-100 hover:bg-indigo-800 hover:text-white group py-2 px-3 rounded-md flex items-center text-sm font-medium">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="text-indigo-300 group-hover:text-white mr-3 h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                    </svg>
-                                    <span>Update</span>
-                                </a>
-                            </div>
-                        </nav>
 
                         <!-- Secondary menu info (hidden on larger screens) -->
                         <aside class="block lg:hidden">
@@ -501,8 +466,8 @@
                 </aside>
 
                 <!-- Update modal -->
-                <div id="updateModal" class="hidden fixed z-40 inset-0 overflow-y-auto">
-                    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div id="updateModal" class="hiddens fixed z-40 inset-0 overflow-y-auto">
+                    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center">
                         <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
                         <!-- This element is to trick the browser into centering the modal contents. -->
@@ -866,12 +831,9 @@
             loadGpsCoords();
         }, 10000);
 
-        document.getElementById('menuRefresh').addEventListener('click', () => {
+        // Side nav bindings
+        document.getElementById('navRefresh').addEventListener('click', () => {
             window.location.reload();
-        });
-
-        document.getElementById('menuFullScreen').addEventListener('click', () => {
-            toggleFullscreen();
         });
 
         document.getElementById('navFullScreen').addEventListener('click', () => {
@@ -882,8 +844,13 @@
             checkForUpdate();
         });
 
-        document.getElementById('menuUpdate').addEventListener('click', () => {
-            checkForUpdate();
+        document.getElementById('navPwnagotchi').addEventListener('click', () => {
+            let pwngotchiDiv = document.getElementById('pwnagotchi');
+            if (pwngotchiDiv.classList.contains('hidden')) {
+                pwngotchiDiv.classList.remove('hidden');
+            } else {
+                pwngotchiDiv.classList.add('hidden');
+            }
         });
 
         document.getElementById("buttonExecuteUpdate").addEventListener('click', () => {
@@ -902,15 +869,6 @@
         })
 
         document.getElementById('menuPwnagotchi').addEventListener('click', () => {
-            let pwngotchiDiv = document.getElementById('pwnagotchi');
-            if (pwngotchiDiv.classList.contains('hidden')) {
-                pwngotchiDiv.classList.remove('hidden');
-            } else {
-                pwngotchiDiv.classList.add('hidden');
-            }
-        });
-
-        document.getElementById('navPwnagotchi').addEventListener('click', () => {
             let pwngotchiDiv = document.getElementById('pwnagotchi');
             if (pwngotchiDiv.classList.contains('hidden')) {
                 pwngotchiDiv.classList.remove('hidden');
