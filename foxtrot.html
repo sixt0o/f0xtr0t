@@ -127,6 +127,15 @@
                         </svg>
                         <span class="mt-2">Fullscreen</span>
                     </a>
+                    <a href="#" id="navPwnagotchi"
+                        class="text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-white group-hover:text-white h-6 w-6"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="mt-2">Pwnagotchi</span>
+                    </a>
                     <a href="#" id="navUpdate"
                         class="text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-white group-hover:text-white h-6 w-6"
@@ -415,9 +424,9 @@
 
                         <!-- pwnagotchi modal -->
                         <div id="pwnagotchi"
-                            class="mx-auto absolute inset-x-10 bottom-0 z-50 bg-white overflow-hidden shadow-lg h-44 hidden sm:w-4/5">
+                            class="mx-auto rounded-lg absolute inset-x-10 bottom-10 z-50 bg-white overflow-hidden shadow-lg h-44 hidden sm:w-4/5">
                             <iframe id="iframe_pwnagotchi" src="http://pwnagotchi.local:8080/"
-                                class="w-full h-52 -mt-10 border"></iframe>
+                                class="w-full h-56 -mt-10"></iframe>
                         </div>
 
                     </section>
@@ -893,6 +902,15 @@
         })
 
         document.getElementById('menuPwnagotchi').addEventListener('click', () => {
+            let pwngotchiDiv = document.getElementById('pwnagotchi');
+            if (pwngotchiDiv.classList.contains('hidden')) {
+                pwngotchiDiv.classList.remove('hidden');
+            } else {
+                pwngotchiDiv.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('navPwnagotchi').addEventListener('click', () => {
             let pwngotchiDiv = document.getElementById('pwnagotchi');
             if (pwngotchiDiv.classList.contains('hidden')) {
                 pwngotchiDiv.classList.remove('hidden');
