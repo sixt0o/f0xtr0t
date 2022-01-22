@@ -111,7 +111,7 @@
     <div class="h-full flex" x-data="{ isOpen: false }">
 
         <!-- Narrow sidebar -->
-        <div class="hidden w-28 bg-slate-900 overflow-y-auto sm:block">
+        <div class="absolute right-0 top-12 sm:top-0 r-0 z-40 sm:relative sm:h-full sm:w-28 bg-none sm:overflow-y-auto sm:block sm:bg-slate-900">
             <div class="w-full py-6 flex flex-col items-center">
                 <div class="flex-shrink-0 flex items-center">
                     <img class="h-20 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
@@ -162,7 +162,7 @@
           Mobile menu
           Off-canvas menu for mobile, show/hide based on off-canvas menu state.
         -->
-        <div class="lg:hidden" role="dialog" aria-modal="true" x-show="isOpen">
+        <div class="lg:hidden" x-show="isOpen">
             <div class="fixed inset-0 z-40 flex">
 
                 <div x-transition:enter="transition-opacity ease-linear duration-300"
