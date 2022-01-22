@@ -111,7 +111,8 @@
     <div class="h-full flex" x-data="{ isOpen: false }">
 
         <!-- Narrow sidebar -->
-        <div class="absolute right-0 top-12 sm:top-0 r-0 z-40 sm:relative sm:h-full sm:w-28 bg-none sm:overflow-y-auto sm:block sm:bg-slate-900">
+        <div
+            class="absolute right-0 top-12 sm:top-0 r-0 z-40 sm:relative sm:h-full sm:w-28 bg-none sm:overflow-y-auto sm:block sm:bg-slate-900">
             <div class="w-full py-6 flex flex-col items-center">
                 <div class="flex-shrink-0 flex items-center">
                     <img class="h-20 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
@@ -525,8 +526,9 @@
         var marker_pos = [];
         var markerClusters = L.markerClusterGroup();
         var lastGPSUpdate = null;
-        var myLocationMarker = {};
-        var myLocationLoaded = false;
+        var locationMarker = {};
+        var circleMarker = {};
+        var locationLoaded = false;
         var lastPositionCount = 0;
         var hostName = null;
 
@@ -620,11 +622,11 @@
                 document.getElementById("current_longitude_menu").innerHTML = coords.Longitude;
                 document.getElementById("current_altitude_menu").innerHTML = coords.Altitude;
                 if (coords.Latitude && coords.Longitude) {
-                    if (!myLocationLoaded) {
-                        myLocationMarker = L.marker(latlong).addTo(mymap);
+                    if (!locationLoaded) {
+                        locationMarker = L.marker(latlong).addTo(mymap);
                         mymap.flyTo(latlong, 18);
                         setTimeout(() => {
-                            L.circle(latlong, {
+                            circleMarker = L.circle(latlong, {
                                 color: 'red',
                                 fillColor: 'f03',
                                 fillOpacity: 0.1,
@@ -633,9 +635,11 @@
                                 radius: 50,
                             }).setStyle({ 'className': 'radar' }).addTo(mymap)
                         }, 5000);
-                        myLocationLoaded = true
+                        locationLoaded = true
                     } else {
-                        myLocationMarker.setLatLng(latlong);
+                        locationMarker.setLatLng(latlong);
+                        circleMarker.setLatLng(latlong);
+                        mymap.panTo(latlong);
                     }
 
                     document.getElementById("location_warning").classList.add("hidden");
