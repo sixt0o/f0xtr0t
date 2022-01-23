@@ -111,12 +111,12 @@
     <div class="h-full flex" x-data="{ isOpen: false }">
 
         <!-- Narrow sidebar -->
-        <div
+        <div id="navbar"
             class="absolute right-6 sm:right-0 top-20 sm:top-0 z-40 sm:relative sm:h-full sm:w-28 sm:overflow-y-auto sm:block bg-slate-900 bg-opacity-75 rounded-lg">
             <div class="w-full py-6 flex flex-col items-center">
-                <div class="flex-shrink-0 flex items-center">
-                    <img class="h-20 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
-                        alt="Foxtro">
+                <div id="navLogo" class="flex-shrink-0 flex items-center">
+                    <img class="h-12 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
+                        alt="Foxtrot">
                 </div>
                 <div class="flex-1 mt-6 w-full px-2 space-y-2">
                     <a href="#" id="navFullScreen"
@@ -560,6 +560,7 @@
         var hostName = null;
         var mapStyles = [Jawg_Matrix, Jawg_Streets];
         var currentMapStyle = 0;
+        var navMinimized = false;
 
         // select your map theme from https://leaflet-extras.github.io/leaflet-providers/preview/
         // use 2 layers with alpha for a nice dark style
@@ -852,6 +853,18 @@
             mapStyleLayer = mapStyles[currentMapStyle].addTo(mymap);
         }
 
+        const minimizeNav = () => {
+            if (navMinimized) {
+                document.getElementById('navbar').classList.remove('h-24');
+                document.getElementById('navbar').classList.remove('overflow-hidden');
+                navMinimized = false;
+            } else {
+                document.getElementById('navbar').classList.add('h-24');
+                document.getElementById('navbar').classList.add('overflow-hidden');
+                navMinimized = true
+            }
+        }
+
         loadGpsCoords();
         loadJSON("/plugins/foxtrot/hostname", function (response) {
             let hostname = JSON.parse(response);
@@ -898,6 +911,10 @@
 
         document.getElementById('navMapStyle').addEventListener('click', () => {
             changeMapStyle();
+        });
+
+        document.getElementById('navLogo').addEventListener('click', () => {
+            minimizeNav();
         });
 
         document.getElementById("buttonExecuteUpdate").addEventListener('click', () => {

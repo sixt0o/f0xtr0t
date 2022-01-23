@@ -47,7 +47,7 @@ class Foxtrot(plugins.Plugin):
     ALREADY_SENT = list()
     SKIP = list()
     UPDATE_URL = "https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/version.txt"
-    CURRENT_VERSION = "v1.2.0-alpha"
+    CURRENT_VERSION = "v1.2.1-alpha"
 
     def __init__(self):
         self.ready = False
