@@ -112,15 +112,15 @@
 
         <!-- Narrow sidebar -->
         <div
-            class="absolute right-0 top-12 sm:top-0 r-0 z-40 sm:relative sm:h-full sm:w-28 bg-none sm:overflow-y-auto sm:block sm:bg-slate-900">
+            class="absolute right-6 sm:right-0 top-20 sm:top-0 z-40 sm:relative sm:h-full sm:w-28 sm:overflow-y-auto sm:block bg-slate-900 bg-opacity-75 rounded-lg">
             <div class="w-full py-6 flex flex-col items-center">
                 <div class="flex-shrink-0 flex items-center">
                     <img class="h-20 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
                         alt="Foxtro">
                 </div>
-                <div class="flex-1 mt-6 w-full px-2 space-y-1">
+                <div class="flex-1 mt-6 w-full px-2 space-y-2">
                     <a href="#" id="navFullScreen"
-                        class="text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                        class="text-indigo-100 hover:bg-slate-900 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-white group-hover:text-white h-6 w-6"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -129,7 +129,7 @@
                         <span class="mt-2">Fullscreen</span>
                     </a>
                     <a href="#" id="navPwnagotchi"
-                        class="text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                        class="text-indigo-100 hover:bg-slate-900 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-white group-hover:text-white h-6 w-6"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -138,7 +138,7 @@
                         <span class="mt-2">Pwnagotchi</span>
                     </a>
                     <a href="#" id="navUpdate"
-                        class="text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                        class="text-indigo-100 hover:bg-slate-900 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-white group-hover:text-white h-6 w-6"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -147,13 +147,22 @@
                         <span class="mt-2">Update</span>
                     </a>
                     <a href="#" id="navRefresh"
-                        class="text-indigo-100 hover:bg-indigo-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                        class="text-indigo-100 hover:bg-slate-900 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-white group-hover:text-white h-6 w-6"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                         </svg>
-                        <span class="mt-2">Refresh</span>
+                        <span class="mt-2">Reload</span>
+                    </a>
+                    <a href="#" id="navMapStyle"
+                        class="text-indigo-100 hover:bg-slate-900 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-white group-hover:text-white h-6 w-6"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                        </svg>
+                        <span class="mt-2">Map Style</span>
                     </a>
                 </div>
             </div>
@@ -519,6 +528,24 @@
 
     <script type="text/javascript">
 
+
+        var Jawg_Matrix = L.tileLayer('https://{s}.tile.jawg.io/jawg-matrix/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
+            attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            minZoom: 0,
+            maxZoom: 22,
+            subdomains: 'abcd',
+            accessToken: 'cc2Ufj6jpMW5ADos7zJYnE97CxNSDZb4DObqj1aV3QSXEYE5TFHjvEghzcISsQMu'
+        });
+
+        var Jawg_Streets = L.tileLayer('https://{s}.tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
+            attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            minZoom: 0,
+            maxZoom: 22,
+            subdomains: 'abcd',
+            accessToken: 'cc2Ufj6jpMW5ADos7zJYnE97CxNSDZb4DObqj1aV3QSXEYE5TFHjvEghzcISsQMu'
+        });
+
+
         var positionsLoaded = false;
         var positions = [];
         var accuracys = [];
@@ -531,6 +558,8 @@
         var locationLoaded = false;
         var lastPositionCount = 0;
         var hostName = null;
+        var mapStyles = [Jawg_Matrix, Jawg_Streets];
+        var currentMapStyle = 0;
 
         // select your map theme from https://leaflet-extras.github.io/leaflet-providers/preview/
         // use 2 layers with alpha for a nice dark style
@@ -543,12 +572,15 @@
         //     opacity: 0.8,
         //     maxZoom: 20
         // });
-        var Topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 12, attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)' });
+        // var Topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 12, attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)' });
+
 
         var mymap = L.map('mapdiv', { zoomControl: false }).setView([39.82, -98.58], 5);
-        // Esri_WorldImagery.addTo(mymap);
+        //Esri_WorldImagery.addTo(mymap);
         // CartoDB_DarkMatter.addTo(mymap);
-        Topo.addTo(mymap);
+        // Topo.addTo(mymap);
+        //Jawg_Matrix.addTo(mymap);
+        var mapStyleLayer = mapStyles[currentMapStyle].addTo(mymap);
 
         var svg = '<svg class="pwnAPPin" width="80px" height="60px" viewBox="0 0 44 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><desc>pwnagotchi AP icon.</desc><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#FFFFFF" offset="0%"></stop><stop stop-color="#000000" offset="100%"></stop></linearGradient></defs><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="marker"><path class="ring_outer" d="M28.6,8 C34.7,9.4 39,12.4 39,16 C39,20.7 31.3,24.6 21.7,24.6 C12.1,24.6 4.3,20.7 4.3,16 C4.3,12.5 8.5,9.5 14.6,8.1 C15.3,8 14.2,6.6 13.3,6.8 C5.5,8.4 0,12.2 0,16.7 C0,22.7 9.7,27.4 21.7,27.4 C33.7,27.4 43.3,22.6 43.3,16.7 C43.3,12.1 37.6,8.3 29.6,6.7 C28.8,6.5 27.8,7.9 28.6,8.1 L28.6,8 Z" id="Shape" fill="#878787" fill-rule="nonzero"></path><path class="ring_inner" d="M28.1427313,11.0811939 C30.4951542,11.9119726 32.0242291,13.2174821 32.0242291,14.6416742 C32.0242291,17.2526931 27.6722467,19.2702986 22.261674,19.2702986 C16.8511013,19.2702986 12.4991189,17.2526931 12.4991189,14.7603569 C12.4991189,13.5735301 13.4400881,12.505386 15.0867841,11.6746073 C15.792511,11.3185592 14.7339207,9.30095371 13.9105727,9.77568442 C10.6171806,10.9625112 8.5,12.9801167 8.5,15.2350876 C8.5,19.0329333 14.4986784,22.0000002 21.9088106,22.0000002 C29.2013216,22.0000002 35.2,19.0329333 35.2,15.2350876 C35.2,12.861434 32.7299559,10.6064632 28.8484581,9.30095371 C28.0251101,9.18227103 27.4370044,10.8438285 28.0251101,11.0811939 L28.1427313,11.0811939 Z" id="Shape" fill="#5F5F5F" fill-rule="nonzero"></path><g id="ap" transform="translate(13.000000, 0.000000)"><rect id="apfront" fill="#000000" x="0" y="14" width="18" height="4"></rect><polygon id="apbody" fill="url(#linearGradient-1)" points="3.83034404 10 14.169656 10 18 14 0 14"></polygon><circle class="ring_outer" id="led1" fill="#931F1F" cx="3" cy="16" r="1"></circle><circle class="ring_inner" id="led2" fill="#931F1F" cx="7" cy="16" r="1"></circle><circle class="ring_outer" id="led3" fill="#931F1F" cx="11" cy="16" r="1"></circle><circle class="ring_inner" id="led4" fill="#931F1F" cx="15" cy="16" r="1"></circle><polygon id="antenna2" fill="#000000" points="8.8173082 0 9.1826918 0 9.5 11 8.5 11"></polygon><polygon id="antenna3" fill="#000000" transform="translate(15.000000, 5.500000) rotate(15.000000) translate(-15.000000, -5.500000) " points="14.8173082 0 15.1826918 0 15.5 11 14.5 11"></polygon><polygon id="antenna1" fill="#000000" transform="translate(3.000000, 5.500000) rotate(-15.000000) translate(-3.000000, -5.500000) " points="2.8173082 0 3.1826918 0 3.5 11 2.5 11"></polygon></g></g></g></svg>';
         var svgOpen = '<svg class="pwnAPPinOpen" width="80px" height="60px" viewBox="0 0 44 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><desc>pwnagotchi AP icon.</desc><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1"><stop stop-color="#FFFFFF" offset="0%"></stop><stop stop-color="#000000" offset="100%"></stop></linearGradient></defs><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="marker"><path class="ring_outer" d="M28.6,8 C34.7,9.4 39,12.4 39,16 C39,20.7 31.3,24.6 21.7,24.6 C12.1,24.6 4.3,20.7 4.3,16 C4.3,12.5 8.5,9.5 14.6,8.1 C15.3,8 14.2,6.6 13.3,6.8 C5.5,8.4 0,12.2 0,16.7 C0,22.7 9.7,27.4 21.7,27.4 C33.7,27.4 43.3,22.6 43.3,16.7 C43.3,12.1 37.6,8.3 29.6,6.7 C28.8,6.5 27.8,7.9 28.6,8.1 L28.6,8 Z" id="Shape" fill="#878787" fill-rule="nonzero"></path><path class="ring_inner" d="M28.1427313,11.0811939 C30.4951542,11.9119726 32.0242291,13.2174821 32.0242291,14.6416742 C32.0242291,17.2526931 27.6722467,19.2702986 22.261674,19.2702986 C16.8511013,19.2702986 12.4991189,17.2526931 12.4991189,14.7603569 C12.4991189,13.5735301 13.4400881,12.505386 15.0867841,11.6746073 C15.792511,11.3185592 14.7339207,9.30095371 13.9105727,9.77568442 C10.6171806,10.9625112 8.5,12.9801167 8.5,15.2350876 C8.5,19.0329333 14.4986784,22.0000002 21.9088106,22.0000002 C29.2013216,22.0000002 35.2,19.0329333 35.2,15.2350876 C35.2,12.861434 32.7299559,10.6064632 28.8484581,9.30095371 C28.0251101,9.18227103 27.4370044,10.8438285 28.0251101,11.0811939 L28.1427313,11.0811939 Z" id="Shape" fill="#5F5F5F" fill-rule="nonzero"></path><g id="ap" transform="translate(13.000000, 0.000000)"><rect id="apfront" fill="#000000" x="0" y="14" width="18" height="4"></rect><polygon id="apbody" fill="url(#linearGradient-1)" points="3.83034404 10 14.169656 10 18 14 0 14"></polygon><circle class="ring_outer" id="led1" fill="#1f9321" cx="3" cy="16" r="1"></circle><circle class="ring_inner" id="led2" fill="#1f9321" cx="7" cy="16" r="1"></circle><circle class="ring_outer" id="led3" fill="#1f9321" cx="11" cy="16" r="1"></circle><circle class="ring_inner" id="led4" fill="#1f9321" cx="15" cy="16" r="1"></circle><polygon id="antenna2" fill="#000000" points="8.8173082 0 9.1826918 0 9.5 11 8.5 11"></polygon><polygon id="antenna3" fill="#000000" transform="translate(15.000000, 5.500000) rotate(15.000000) translate(-15.000000, -5.500000) " points="14.8173082 0 15.1826918 0 15.5 11 14.5 11"></polygon><polygon id="antenna1" fill="#000000" transform="translate(3.000000, 5.500000) rotate(-15.000000) translate(-3.000000, -5.500000) " points="2.8173082 0 3.1826918 0 3.5 11 2.5 11"></polygon></g></g></g></svg>';
@@ -566,7 +598,6 @@
             iconSize: [80, 60],
             popupAnchor: [0, -30],
         });
-
 
         const loadJSON = (url, callback) => {
             var xobj = new XMLHttpRequest();
@@ -815,6 +846,12 @@
             }
         });
 
+        const changeMapStyle = () => {
+            currentMapStyle = currentMapStyle === 1 ? 0 : 1;
+            mymap.removeLayer(mapStyleLayer);
+            mapStyleLayer = mapStyles[currentMapStyle].addTo(mymap);
+        }
+
         loadGpsCoords();
         loadJSON("/plugins/foxtrot/hostname", function (response) {
             let hostname = JSON.parse(response);
@@ -857,6 +894,10 @@
             } else {
                 pwngotchiDiv.classList.add('hidden');
             }
+        });
+
+        document.getElementById('navMapStyle').addEventListener('click', () => {
+            changeMapStyle();
         });
 
         document.getElementById("buttonExecuteUpdate").addEventListener('click', () => {
