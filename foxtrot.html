@@ -814,7 +814,7 @@
             }
             if (count > 0) {
                 mymap.addLayer(markerClusters);
-                if (!myLocationLoaded) {
+                if (!locationLoaded) {
                     var bounds = new L.LatLngBounds(marker_pos);
                     mymap.fitBounds(bounds);
                 }
