@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/xml; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foxtrot</title>
+    <title>f0xtr0t</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
@@ -116,13 +116,22 @@
 
         <!-- Narrow sidebar -->
         <div id="navbar"
-            class="absolute right-6 sm:right-0 top-20 sm:top-0 z-40 sm:relative sm:h-full sm:w-28 overflow-hidden sm:block bg-slate-900 bg-opacity-75 rounded-lg">
+            class="absolute right-6 sm:right-0 top-20 sm:top-0 z-40 sm:relative sm:h-full sm:w-28 overflow-hidden sm:block bg-slate-900 bg-opacity-90">
             <div class="w-full py-6 flex flex-col items-center">
-                <div id="navLogo" class="flex-shrink-0 flex items-center">
+                <!-- <div id="navLogo" class="flex-shrink-0 flex items-center">
                     <img class="h-12 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
                         alt="Foxtrot">
-                </div>
-                <div class="flex-1 mt-6 w-full px-2 space-y-2">
+                </div> -->
+                <div class="flex-1 w-full px-2 space-y-2 text-center">
+                    <button type="button" @click="isOpen = !isOpen"
+                        class="lg:hidden px-4 text-gray-500 hover:bg-slate-700 py-2 rounded-lg focus:outline-none">
+                        <span class="sr-only">Open sidebar</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h7" />
+                        </svg>
+                    </button>
                     <a href="#" id="navFullScreen"
                         class="text-indigo-100 hover:bg-slate-900 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-white group-hover:text-white h-6 w-6"
@@ -303,17 +312,8 @@
         <div class="flex-1 flex flex-col overflow-hidden">
 
             <!-- Header/Search -->
-            <header class="w-full">
+            <header class="w-full sm:hidden">
                 <div class="relative z-20 flex-shrink-0 h-16 bg-gray-800 shadow-lg flex">
-                    <button type="button" @click="isOpen = !isOpen"
-                        class="lg:hidden border-r border-slate-700 px-4 text-gray-500 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                        <span class="sr-only">Open sidebar</span>
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h7" />
-                        </svg>
-                    </button>
                     <div class="flex-1 flex justify-between px-4 sm:px-6">
                         <div class="flex-1 flex">
                             <div class="w-full flex lg:ml-0">
