@@ -116,11 +116,11 @@
 
         <!-- Narrow sidebar -->
         <div id="navbar"
-            class="absolute right-6 sm:right-0 top-40 sm:top-0 z-40 sm:relative sm:h-full sm:w-28 overflow-hidden sm:block bg-slate-900 bg-opacity-90">
+            class="absolute right-6 sm:right-0 top-40 rounded-lg sm:rounded-none sm:top-0 z-40 sm:relative sm:h-full sm:w-28 overflow-hidden sm:block bg-slate-900 bg-opacity-90">
             <div class="w-full py-6 flex flex-col items-center">
                 <!-- <div id="navLogo" class="flex-shrink-0 flex items-center">
                     <img class="h-12 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
-                        alt="Foxtrot">
+                        alt="f0xtr0t">
                 </div> -->
                 <div class="flex-1 w-full px-2 space-y-2 text-center">
                     <button type="button" @click="isOpen = !isOpen"
@@ -186,7 +186,7 @@
           Off-canvas menu for mobile, show/hide based on off-canvas menu state.
         -->
         <div class="lg:hidden" x-show="isOpen">
-            <div class="fixed inset-0 z-40 flex">
+            <div class="fixed inset-0 z-50 flex">
 
                 <div x-transition:enter="transition-opacity ease-linear duration-300"
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
@@ -217,19 +217,20 @@
                     </div>
 
                     <div class="flex-shrink-0 px-4 flex items-center">
-                        <img class="h-12 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
+                        <img class="h-16 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
                             alt="Workflow">
+                            <span class="text-slate-500 font-bold text-2xl ml-4">f0xtr0t</span>
                     </div>
                     <div class="mt-5 flex-1 h-0 px-2 overflow-y-auto">
 
                         <!-- Secondary menu info (hidden on larger screens) -->
                         <aside class="block lg:hidden">
-                            <div class="px-4">
-                                <dl class="mt-5 grid grid-cols-1 gap-5">
+                            <div class="px-2">
+                                <dl class="mt-5 grid grid-cols-1 gap-2">
                                     <div
-                                        class="px-4 py-5 border-2 border-slate-900 border-b-slate-800 overflow-hidden sm:p-6">
+                                        class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
-                                            Total Positions
+                                            Total Handshakes
                                         </dt>
                                         <dd id="total_positions_menu"
                                             class="mt-1 text-3xl font-semibold text-indigo-200">
@@ -237,9 +238,9 @@
                                         </dd>
                                     </div>
                                 </dl>
-                                <dl class="mt-5 grid grid-cols-1 gap-5">
+                                <dl class="mt-5 grid grid-cols-1 gap-2">
                                     <div
-                                        class="px-4 py-5 border-2 border-slate-900 border-b-slate-800  overflow-hidden sm:p-6">
+                                        class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
                                             Latitude
                                         </dt>
@@ -249,9 +250,9 @@
                                         </dd>
                                     </div>
                                 </dl>
-                                <dl class="mt-5 grid grid-cols-1 gap-5">
+                                <dl class="mt-5 grid grid-cols-1 gap-2">
                                     <div
-                                        class="px-4 py-5 border-2 border-slate-900 border-b-slate-800  overflow-hidden sm:p-6">
+                                        class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
                                             Longitude
                                         </dt>
@@ -261,9 +262,9 @@
                                         </dd>
                                     </div>
                                 </dl>
-                                <dl class="mt-5 grid grid-cols-1 gap-5">
+                                <dl class="mt-5 grid grid-cols-1 gap-2">
                                     <div
-                                        class="px-4 py-5 border-2 border-slate-900 border-b-slate-800  overflow-hidden sm:p-6">
+                                        class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
                                             Altitude
                                         </dt>
@@ -273,9 +274,9 @@
                                         </dd>
                                     </div>
                                 </dl>
-                                <dl class="mt-5 grid grid-cols-1 gap-5">
+                                <dl class="mt-5 grid grid-cols-1 gap-2">
                                     <div
-                                        class="px-4 py-5 border-2 border-slate-900 border-b-slate-800  overflow-hidden sm:p-6">
+                                        class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
                                             Last GPS/AP Update
                                         </dt>
@@ -285,9 +286,9 @@
                                         </dd>
                                     </div>
                                 </dl>
-                                <dl class="mt-5 grid grid-cols-1 gap-5">
+                                <dl class="mt-5 grid grid-cols-1 gap-2">
                                     <div
-                                        class="px-4 py-5 border-2 border-slate-900 border-b-slate-800  overflow-hidden sm:p-6">
+                                        class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
                                             Version
                                         </dt>
@@ -377,7 +378,7 @@
 
                 <main class="flex-1 overflow-hidden relative">
                     <!-- GPSD warning -->
-                    <div class="bg-red-900 px-4 py-2 hiddens w-full absolute top-0 z-50 bg-opacity-90 shadow-lg" id="location_warning">
+                    <div class="bg-red-900 px-4 py-2 hiddens w-full absolute top-0 z-40 bg-opacity-90 shadow-lg" id="location_warning">
                         <div class="flex">
                             <div class="flex-shrink-0">
                                 <!-- Heroicon name: solid/exclamation -->
@@ -626,7 +627,7 @@
 
         const loadPositions = () => {
             // load positions
-            loadJSON("/plugins/foxtrot/all", function (response) {
+            loadJSON("/plugins/f0xtr0t/all", function (response) {
                 positions = JSON.parse(response);
                 positionsLoaded = true;
                 document.getElementById("total_positions").innerHTML = Object.keys(positions).length
@@ -637,7 +638,7 @@
 
         const loadGpsCoords = () => {
             lastGPSUpdate = new Date();
-            loadJSON("/plugins/foxtrot/gps", (response) => {
+            loadJSON("/plugins/f0xtr0t/gps", (response) => {
                 coords = JSON.parse(response);
                 latlong = new L.LatLng(coords.Latitude, coords.Longitude);
                 document.getElementById("current_latitude").innerHTML = coords.Latitude;
@@ -732,10 +733,10 @@
             document.getElementById("notification_title").innerHTML = "Please wait...";
             document.getElementById("notification_text").innerHTML = "Checking version...";
 
-            loadJSON('/plugins/foxtrot/currentversion', (versionResponse) => {
+            loadJSON('/plugins/f0xtr0t/currentversion', (versionResponse) => {
                 currentVersion = JSON.parse(versionResponse);
                 document.getElementById("notification_text").innerHTML = `Current version: <span class="font-bold">${currentVersion}</span>, checking for updates...`;
-                loadJSON("/plugins/foxtrot/checkupdate", (updateResponse) => {
+                loadJSON("/plugins/f0xtr0t/checkupdate", (updateResponse) => {
                     onlineVersion = JSON.parse(updateResponse);
                     if (onlineVersion !== currentVersion) {
                         document.getElementById("notification").classList.add("hidden");
@@ -861,12 +862,12 @@
         }
 
         loadGpsCoords();
-        loadJSON("/plugins/foxtrot/hostname", function (response) {
+        loadJSON("/plugins/f0xtr0t/hostname", function (response) {
             let hostname = JSON.parse(response);
             document.getElementById('iframe_pwnagotchi').src = `http://${hostname}.local:8080`;
         });
 
-        loadJSON("/plugins/foxtrot/currentversion", (response) => {
+        loadJSON("/plugins/f0xtr0t/currentversion", (response) => {
             document.getElementById("version").innerHTML = JSON.parse(response);
             document.getElementById("version_menu").innerHTML = JSON.parse(response);
         });
@@ -918,7 +919,7 @@
             document.getElementById("notification_title").innerHTML = "Please wait...";
             document.getElementById("notification_text").innerHTML = "Downloading update...";
 
-            loadJSON("/plugins/foxtrot/executeupdate", (response) => {
+            loadJSON("/plugins/f0xtr0t/executeupdate", (response) => {
                 document.getElementById("notification_title").innerHTML = "Sweet!";
                 document.getElementById("notification_text").innerHTML = "Update complete! Please restart you device for changes to take effect.";
                 setTimeout(() => {

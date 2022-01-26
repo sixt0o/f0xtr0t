@@ -37,17 +37,15 @@ class GPSD:
                     }
         return self.coords
 
-class Foxtrot(plugins.Plugin):
+class f0xtr0t(plugins.Plugin):
     __author__ = 'https://github.com/sixt0o'
-    __version__ = '1.0.0'
-    __name__ = 'foxtrot'
+    __version__ = 'v1.3.0-alpha'
+    __name__ = 'f0xtr0t'
     __license__ = 'GPL3'
-    __description__ = 'a plugin for pwnagotchi that shows a openstreetmap with positions of ap-handshakes in your webbrowser'
+    __description__ = 'a plugin for pwnagotchi that shows a openstreetmap with positions of ap-handshakes in your webbrowser. Based on the origional webgpsmaps'
 
     ALREADY_SENT = list()
     SKIP = list()
-    UPDATE_URL = "https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/version.txt"
-    CURRENT_VERSION = "v1.2.9-alpha"
 
     def __init__(self):
         self.ready = False
@@ -58,7 +56,7 @@ class Foxtrot(plugins.Plugin):
         self.ready = True
 
     def on_loaded(self):
-        logging.info("[foxtrot]: plugin loaded")
+        logging.info("[f0xtr0t]: plugin loaded")
 
     def on_webhook(self, path, request):
         # defaults:
@@ -78,7 +76,7 @@ class Foxtrot(plugins.Plugin):
                 response_mimetype = "application/xhtml+xml"
                 response_header_contenttype = 'text/html'
             except Exception as error:
-                logging.error(f"[foxtrot] on_webhook NOT_READY error: {error}")
+                logging.error(f"[f0xtr0t] on_webhook NOT_READY error: {error}")
                 return
         else:
             if request.method == "GET":
@@ -87,63 +85,63 @@ class Foxtrot(plugins.Plugin):
                     try:
                         self.gpsd = GPSD(self.options['gpsdhost'], self.options['gpsdport'])
                     except Exception as error:
-                        logging.error(f"[foxtrot] GPS INIT / error: {error}")
+                        logging.error(f"[f0xtr0t] GPS INIT / error: {error}")
                     # returns the html template
                     self.ALREADY_SENT = list()
                     try:
                         response_data = bytes(self.get_html(), "utf-8")
                     except Exception as error:
-                        logging.error(f"[foxtrot] on_webhook / error: {error}")
+                        logging.error(f"[f0xtr0t] on_webhook / error: {error}")
                         return
                     response_status = 200
                     response_mimetype = "application/xhtml+xml"
                     response_header_contenttype = 'text/html'
                 elif path.startswith('gps'):
-                    logging.info(f"[foxtrot] GPS request received, trying to load coords...")
+                    logging.info(f"[f0xtr0t] GPS request received, trying to load coords...")
                     try:
                         coords = self.gpsd.update_gps()
-                        logging.info(f"[foxtrot] GPS COORDS: {coords}")
+                        logging.info(f"[f0xtr0t] GPS COORDS: {coords}")
                         response_data = json.dumps(coords)
                         response_status = 200
                         response_mimetype = "application/json"
                         response_header_contenttype = 'application/json'
                     except Exception as error:
-                        logging.error(f"[foxtrot] on_webhook all error: {error}")
+                        logging.error(f"[f0xtr0t] on_webhook all error: {error}")
                         return
                 elif path.startswith('hostname'):
-                    logging.info(f"[foxtrot] GPS COORDS: {socket.gethostname()}")
+                    logging.info(f"[f0xtr0t] GPS COORDS: {socket.gethostname()}")
                     response_data = json.dumps(socket.gethostname())
                     response_status = 200
                     response_mimetype = "application/json"
                     response_header_contenttype = 'application/json'
                 elif path.startswith('currentversion'):
                     try:
-                        logging.info(f"[foxtrot] Current version: {self.CURRENT_VERSION}")
-                        response_data = json.dumps(self.CURRENT_VERSION)
+                        logging.info(f"[f0xtr0t] Current version: {self.__version__}")
+                        response_data = json.dumps(self.__version__)
                         response_status = 200
                         response_mimetype = "application/json"
                         response_header_contenttype = 'application/json'
                     except Exception as error:
-                        logging.error(f"[foxtrot] Error getting version: {error}")
+                        logging.error(f"[f0xtr0t] Error getting version: {error}")
                         return
                 elif path.startswith('checkupdate'):
-                    logging.info(f"[foxtrot] Checking for new version: {self.UPDATE_URL}")
+                    logging.info(f"[f0xtr0t] Checking for new version...")
                     try:
                         response = requests.get("https://api.github.com/repos/sixt0o/f0xtr0t/releases/latest")
-                        logging.info(f"[foxtrot] Update version: {response.json()['tag_name']}")
+                        logging.info(f"[f0xtr0t] Update version: {response.json()['tag_name']}")
                         response_data = json.dumps(response.json()['tag_name'])
                         response_status = 200
                         response_mimetype = "application/json"
                         response_header_contenttype = 'application/json'
                     except Exception as error:
-                        logging.error(f"[foxtrot] Error checking for update: {error}")
+                        logging.error(f"[f0xtr0t] Error checking for update: {error}")
                         return
                 elif path.startswith('executeupdate'):
-                    logging.info("[foxtrot] Executing update...")
+                    logging.info("[f0xtr0t] Executing update...")
                     try:
 
                         response = requests.get("https://api.github.com/repos/sixt0o/f0xtr0t/releases/latest")
-                        logging.info(f"[foxtrot] Updating from zip ball: {response.json()['zipball_url']}")
+                        logging.info(f"[f0xtr0t] Updating from zip ball: {response.json()['zipball_url']}")
 
                         plugin_dir = '/usr/local/share/pwnagotchi/installed-plugins/'
                         with urlopen(response.json()['zipball_url']) as zipresp:
@@ -164,7 +162,7 @@ class Foxtrot(plugins.Plugin):
                         response_mimetype = "application/json"
                         response_header_contenttype = 'application/json'
                     except Exception as error:
-                        logging.error(f"[foxtrot] Error executing update: {error}")
+                        logging.error(f"[f0xtr0t] Error executing update: {error}")
                         return
                 elif path.startswith('all'):
                     # returns all positions
@@ -175,7 +173,7 @@ class Foxtrot(plugins.Plugin):
                         response_mimetype = "application/json"
                         response_header_contenttype = 'application/json'
                     except Exception as error:
-                        logging.error(f"[foxtrot] on_webhook all error: {error}")
+                        logging.error(f"[f0xtr0t] on_webhook all error: {error}")
                         return
                 elif path.startswith('offlinemap'):
                     # for download an all-in-one html file with positions.json inside
@@ -188,9 +186,9 @@ class Foxtrot(plugins.Plugin):
                         response_status = 200
                         response_mimetype = "application/xhtml+xml"
                         response_header_contenttype = 'text/html'
-                        response_header_contentdisposition = 'attachment; filename=foxtrot.html';
+                        response_header_contentdisposition = 'attachment; filename=f0xtr0t.html';
                     except Exception as error:
-                        logging.error(f"[foxtrot] on_webhook offlinemap: error: {error}")
+                        logging.error(f"[f0xtr0t] on_webhook offlinemap: error: {error}")
                         return
                 # elif path.startswith('/newest'):
                 #     # returns all positions newer then timestamp
@@ -226,7 +224,7 @@ class Foxtrot(plugins.Plugin):
                 r.headers["Content-Disposition"] = response_header_contentdisposition
             return r
         except Exception as error:
-            logging.error(f"[foxtrot] on_webhook CREATING_RESPONSE error: {error}")
+            logging.error(f"[f0xtr0t] on_webhook CREATING_RESPONSE error: {error}")
             return
 
     # cache 2048 items
@@ -243,7 +241,7 @@ class Foxtrot(plugins.Plugin):
         handshake_dir = gpsdir
         gps_data = dict()
 
-        logging.info(f"[foxtrot] scanning {handshake_dir}")
+        logging.info(f"[f0xtr0t] scanning {handshake_dir}")
 
 
         all_files = os.listdir(handshake_dir)
@@ -255,25 +253,25 @@ class Foxtrot(plugins.Plugin):
         all_geo_or_gps_files = []
         for filename_pcap in all_pcap_files:
             filename_base = filename_pcap[:-5]  # remove ".pcap"
-            logging.debug(f"[foxtrot] found: {filename_base}")
+            logging.debug(f"[f0xtr0t] found: {filename_base}")
             filename_position = None
 
-            logging.debug("[foxtrot] search for .gps.json")
+            logging.debug("[f0xtr0t] search for .gps.json")
             check_for = os.path.basename(filename_base) + ".gps.json"
             if check_for in all_files:
                 filename_position = str(os.path.join(handshake_dir, check_for))
 
-            logging.debug("[foxtrot] search for .geo.json")
+            logging.debug("[f0xtr0t] search for .geo.json")
             check_for = os.path.basename(filename_base) + ".geo.json"
             if check_for in all_files:
                 filename_position = str(os.path.join(handshake_dir, check_for))
 
-            logging.debug("[foxtrot] search for .paw-gps.json")
+            logging.debug("[f0xtr0t] search for .paw-gps.json")
             check_for = os.path.basename(filename_base) + ".paw-gps.json"
             if check_for in all_files:
                 filename_position = str(os.path.join(handshake_dir, check_for))
 
-            logging.debug(f"[foxtrot] end search for position data files and use {filename_position}")
+            logging.debug(f"[f0xtr0t] end search for position data files and use {filename_position}")
 
             if filename_position is not None:
                 all_geo_or_gps_files.append(filename_position)
@@ -283,7 +281,7 @@ class Foxtrot(plugins.Plugin):
         if newest_only:
             all_geo_or_gps_files = set(all_geo_or_gps_files) - set(self.ALREADY_SENT)
 
-        logging.info(f"[foxtrot] Found {len(all_geo_or_gps_files)} position-data files from {len(all_pcap_files)} handshakes. Fetching positions ...")
+        logging.info(f"[f0xtr0t] Found {len(all_geo_or_gps_files)} position-data files from {len(all_pcap_files)} handshakes. Fetching positions ...")
 
         for pos_file in all_geo_or_gps_files:
             try:
@@ -322,17 +320,17 @@ class Foxtrot(plugins.Plugin):
                 self.ALREADY_SENT += pos_file
             except json.JSONDecodeError as error:
                 self.SKIP += pos_file
-                logging.error(f"[foxtrot] JSONDecodeError in: {pos_file} - error: {error}")
+                logging.error(f"[f0xtr0t] JSONDecodeError in: {pos_file} - error: {error}")
                 continue
             except ValueError as error:
                 self.SKIP += pos_file
-                logging.error(f"[foxtrot] ValueError: {pos_file} - error: {error}")
+                logging.error(f"[f0xtr0t] ValueError: {pos_file} - error: {error}")
                 continue
             except OSError as error:
                 self.SKIP += pos_file
-                logging.error(f"[foxtrot] OSError: {pos_file} - error: {error}")
+                logging.error(f"[f0xtr0t] OSError: {pos_file} - error: {error}")
                 continue
-        logging.info(f"[foxtrot] loaded {len(gps_data)} positions")
+        logging.info(f"[f0xtr0t] loaded {len(gps_data)} positions")
         return gps_data
 
     def get_html(self):
@@ -340,10 +338,10 @@ class Foxtrot(plugins.Plugin):
         Returns the html page
         """
         try:
-            template_file = os.path.dirname(os.path.realpath(__file__)) + "/" + "foxtrot.html"
+            template_file = os.path.dirname(os.path.realpath(__file__)) + "/" + "f0xtr0t.html"
             html_data = open(template_file, "r").read()
         except Exception as error:
-            logging.error(f"[foxtrot] error loading template file {template_file} - error: {error}")
+            logging.error(f"[f0xtr0t] error loading template file {template_file} - error: {error}")
         return html_data
 
 
@@ -359,10 +357,10 @@ class PositionFile:
         self._file = path
         self._filename = os.path.basename(path)
         try:
-            logging.debug(f"[foxtrot] loading {path}")
+            logging.debug(f"[f0xtr0t] loading {path}")
             with open(path, 'r') as json_file:
                 self._json = json.load(json_file)
-            logging.debug(f"[foxtrot] loaded {path}")
+            logging.debug(f"[f0xtr0t] loaded {path}")
         except json.JSONDecodeError as js_e:
             raise js_e
 
@@ -429,9 +427,9 @@ class PositionFile:
                 return_pass = password_file.read()
                 password_file.close()
             except OSError as error:
-                logging.error(f"[foxtrot] OS error loading password: {password_file_path} - error: {format(error)}")
+                logging.error(f"[f0xtr0t] OS error loading password: {password_file_path} - error: {format(error)}")
             except:
-                logging.error(f"[foxtrot] Unexpected error loading password: {password_file_path} - error: {sys.exc_info()[0]}")
+                logging.error(f"[f0xtr0t] Unexpected error loading password: {password_file_path} - error: {sys.exc_info()[0]}")
                 raise
         return return_pass
 
