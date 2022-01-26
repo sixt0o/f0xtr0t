@@ -39,13 +39,14 @@ class GPSD:
 
 class f0xtr0t(plugins.Plugin):
     __author__ = 'https://github.com/sixt0o'
-    __version__ = 'v1.3.0-alpha'
+    __version__ = '1.3.0-alpha'
     __name__ = 'f0xtr0t'
     __license__ = 'GPL3'
     __description__ = 'a plugin for pwnagotchi that shows a openstreetmap with positions of ap-handshakes in your webbrowser. Based on the origional webgpsmaps'
 
     ALREADY_SENT = list()
     SKIP = list()
+    CURRENT_VERSION = 'v1.3.0-alpha'
 
     def __init__(self):
         self.ready = False
@@ -116,8 +117,8 @@ class f0xtr0t(plugins.Plugin):
                     response_header_contenttype = 'application/json'
                 elif path.startswith('currentversion'):
                     try:
-                        logging.info(f"[f0xtr0t] Current version: {self.__version__}")
-                        response_data = json.dumps(self.__version__)
+                        logging.info(f"[f0xtr0t] Current version: {self.CURRENT_VERSION}")
+                        response_data = json.dumps(self.CURRENT_VERSION)
                         response_status = 200
                         response_mimetype = "application/json"
                         response_header_contenttype = 'application/json'
