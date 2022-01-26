@@ -116,7 +116,7 @@
 
         <!-- Narrow sidebar -->
         <div id="navbar"
-            class="absolute right-6 sm:right-0 top-20 sm:top-0 z-40 sm:relative sm:h-full sm:w-28 overflow-hidden sm:block bg-slate-900 bg-opacity-90">
+            class="absolute right-6 sm:right-0 top-40 sm:top-0 z-40 sm:relative sm:h-full sm:w-28 overflow-hidden sm:block bg-slate-900 bg-opacity-90">
             <div class="w-full py-6 flex flex-col items-center">
                 <!-- <div id="navLogo" class="flex-shrink-0 flex items-center">
                     <img class="h-12 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
@@ -347,14 +347,14 @@
 
                 <!-- Notification -->
                 <div id="notification"
-                    class="hidden mx-auto absolute inset-x-0 z-50 -mt-4 -ml-2 px-4 py-6 pointer-events-none">
-                    <div class="w-full flex flex-col items-start space-y-4 mb-8">
+                    class="hidden absolute bottom-0 z-50 px-2 py-3 w-96">
+                    <div class="w-full">
                         <div
-                            class="max-w-sm w-full bg-yellow-400 shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+                            class="max-w-sm w-full bg-amber-500 bg-opacity-90 shadow-lg rounded-lg overflow-hidden">
                             <div class="p-4">
                                 <div class="flex items-start">
-                                    <div class="flex-shrink-0 bg-black rounded-full">
-                                        <svg class="h-8 w-8 text-green-400 animate-pulse"
+                                    <div class="flex-shrink-0 bg-amber-700 rounded-full mt-1">
+                                        <svg class="h-12 w-12 text-amber-200"
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -365,7 +365,7 @@
                                         <p id="notification_title" class="text-lg font-bold text-slate-900">
                                             Sweet!
                                         </p>
-                                        <p id="notification_text" class="text-md text-yellow-800">
+                                        <p id="notification_text" class="text-lg text-amber-900">
                                             f0xtr0t loaded.
                                         </p>
                                     </div>
@@ -375,13 +375,13 @@
                     </div>
                 </div>
 
-                <main class="flex-1 overflow-hidden">
+                <main class="flex-1 overflow-hidden relative">
                     <!-- GPSD warning -->
-                    <div class="bg-amber-500 px-4 py-2 hiddens fixed w-full top-0 z-50 bg-opacity-90 shadow-lg" id="location_warning">
+                    <div class="bg-red-900 px-4 py-2 hiddens w-full absolute top-0 z-50 bg-opacity-90 shadow-lg" id="location_warning">
                         <div class="flex">
                             <div class="flex-shrink-0">
                                 <!-- Heroicon name: solid/exclamation -->
-                                <svg class="h-8 w-8 text-amber-700 animate-pulse" xmlns="http://www.w3.org/2000/svg"
+                                <svg class="h-8 w-8 text-red-400 animate-pulse" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd"
                                         d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
@@ -389,7 +389,7 @@
                                 </svg>
                             </div>
                             <div class="ml-3">
-                                <p class="text-md font-bold text-amber-900 pt-1">
+                                <p class="text-md font-bold text-red-400 pt-1">
                                     Location not found. Waiting for coordinates from GPSD...
                                 </p>
                             </div>
