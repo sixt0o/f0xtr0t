@@ -236,6 +236,17 @@
                                 <dl class="mt-5 grid grid-cols-1 gap-2">
                                     <div class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
+                                            GPS Provider
+                                        </dt>
+                                        <dd id="current_gps_provider_menu"
+                                            class="mt-1 text-3xl font-semibold text-indigo-200">
+                                            --
+                                        </dd>
+                                    </div>
+                                </dl>
+                                <dl class="mt-5 grid grid-cols-1 gap-2">
+                                    <div class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
+                                        <dt class="text-md font-medium text-slate-600 truncate">
                                             Latitude
                                         </dt>
                                         <dd id="current_latitude_menu"
@@ -411,6 +422,16 @@
                                     Total Positions
                                 </dt>
                                 <dd id="total_positions" class="mt-1 text-3xl font-semibold text-indigo-200">
+                                    --
+                                </dd>
+                            </div>
+                        </dl>
+                        <dl class="mt-5 grid grid-cols-1 gap-5">
+                            <div class="px-4 py-5 border-2 border-slate-900 border-b-slate-800  overflow-hidden sm:p-6">
+                                <dt class="text-md font-medium text-slate-600 truncate">
+                                    GPS Provider
+                                </dt>
+                                <dd id="current_gps_provider" class="mt-1 text-3xl font-semibold text-indigo-200">
                                     --
                                 </dd>
                             </div>
@@ -627,9 +648,11 @@
 
         const updateMap = (coords) => {
             latlong = new L.LatLng(coords.Latitude, coords.Longitude);
+            document.getElementById("current_gps_provider").innerHTML = gpsProvider;
             document.getElementById("current_latitude").innerHTML = coords.Latitude;
             document.getElementById("current_longitude").innerHTML = coords.Longitude;
             document.getElementById("current_altitude").innerHTML = coords.Altitude;
+            document.getElementById("current_gps_provider_menu").innerHTML = gpsProvider;
             document.getElementById("current_latitude_menu").innerHTML = coords.Latitude;
             document.getElementById("current_longitude_menu").innerHTML = coords.Longitude;
             document.getElementById("current_altitude_menu").innerHTML = coords.Altitude;
