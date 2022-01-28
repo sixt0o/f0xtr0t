@@ -1,2 +1,3 @@
 # f0xtr0t - pwnagotchi plugin
-web gps map... supercharged.
+
+Based on the original webgpsmap plugin, f0xtr0t is an enhanced version that gives you an interfaced optimized for wardriving. With a fully responsive design, you can easily view on your phone, tablet, or even a 4.5 inch pi touchscreen. For the best experience, it's recommended that you have your pwnagotchi tethered (BT/Wifi/Ethernet) to an Internet connection with a GPSD compatible device running.
