@@ -390,7 +390,8 @@
                             </div>
                             <div class="ml-3">
                                 <p class="text-md font-bold text-red-400 pt-1">
-                                    Location not found. Waiting for coordinates from <span id="location_warning_provider"></span>...
+                                    Location not found. Waiting for coordinates from <span
+                                        id="location_warning_provider"></span>...
                                 </p>
                             </div>
                         </div>
@@ -648,11 +649,9 @@
 
         const updateMap = (coords) => {
             latlong = new L.LatLng(coords.Latitude, coords.Longitude);
-            document.getElementById("current_gps_provider").innerHTML = gpsProvider;
             document.getElementById("current_latitude").innerHTML = coords.Latitude;
             document.getElementById("current_longitude").innerHTML = coords.Longitude;
             document.getElementById("current_altitude").innerHTML = coords.Altitude;
-            document.getElementById("current_gps_provider_menu").innerHTML = gpsProvider;
             document.getElementById("current_latitude_menu").innerHTML = coords.Latitude;
             document.getElementById("current_longitude_menu").innerHTML = coords.Longitude;
             document.getElementById("current_altitude_menu").innerHTML = coords.Altitude;
@@ -679,7 +678,6 @@
 
                 document.getElementById("location_warning").classList.add("hidden");
             } else {
-                document.getElementById("location_warning_provider").innerHTML(gpsProvider);
                 document.getElementById("location_warning").classList.remove("hidden");
             }
             loadPositions();
@@ -687,21 +685,28 @@
 
         const loadGpsCoords = () => {
             lastGPSUpdate = new Date();
+            document.getElementById("location_warning_provider").innerHTML(gpsProvider);
+            document.getElementById("current_gps_provider_menu").innerHTML = gpsProvider;
+            document.getElementById("current_gps_provider").innerHTML = gpsProvider;
             switch (gpsProvider) {
                 case 'gpsd':
 
-                    loadJSON("/plugins/f0xtr0t/gpsd", (response) => {
-                        coords = JSON.parse(response);
-                        updateMap(coords);
-                    });
+                    try {
+                        loadJSON("/plugins/f0xtr0t/gpsd", (response) => {
+                            coords = JSON.parse(response);
+                            updateMap(coords);
+                        });
+                    } catch { }
 
                     break;
                 case 'pawgps':
 
-                    loadJSON("/plugins/f0xtr0t/pawgps", (response) => {
-                        coords = JSON.parse(response);
-                        updateMap(coords);
-                    });
+                    try {
+                        loadJSON("/plugins/f0xtr0t/pawgps", (response) => {
+                            coords = JSON.parse(response);
+                            updateMap(coords);
+                        });
+                    } catch { }
 
                     break;
 
