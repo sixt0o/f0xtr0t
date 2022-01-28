@@ -39,14 +39,14 @@ class GPSD:
 
 class f0xtr0t(plugins.Plugin):
     __author__ = 'https://github.com/sixt0o'
-    __version__ = '1.3.7-alpha'
+    __version__ = '1.3.8-alpha'
     __name__ = 'f0xtr0t'
     __license__ = 'GPL3'
     __description__ = 'a plugin for pwnagotchi that shows a openstreetmap with positions of ap-handshakes in your webbrowser. Based on the origional webgpsmaps'
 
     ALREADY_SENT = list()
     SKIP = list()
-    CURRENT_VERSION = 'v1.3.7-alpha'
+    CURRENT_VERSION = 'v1.3.8-alpha'
 
     def __init__(self):
         self.ready = False

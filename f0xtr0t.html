@@ -685,7 +685,7 @@
 
         const loadGpsCoords = () => {
             lastGPSUpdate = new Date();
-            document.getElementById("location_warning_provider").innerHTML(gpsProvider);
+            document.getElementById("location_warning_provider").innerHTML = gpsProvider;
             document.getElementById("current_gps_provider_menu").innerHTML = gpsProvider;
             document.getElementById("current_gps_provider").innerHTML = gpsProvider;
             switch (gpsProvider) {
