@@ -118,10 +118,6 @@
         <div id="navbar"
             class="absolute right-6 sm:right-0 top-40 rounded-lg sm:rounded-none sm:top-0 z-40 sm:relative sm:h-full sm:w-28 overflow-hidden sm:block bg-slate-900 bg-opacity-90">
             <div class="w-full py-6 flex flex-col items-center">
-                <!-- <div id="navLogo" class="flex-shrink-0 flex items-center">
-                    <img class="h-12 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
-                        alt="f0xtr0t">
-                </div> -->
                 <div class="flex-1 w-full px-2 space-y-2 text-center">
                     <button type="button" @click="isOpen = !isOpen"
                         class="lg:hidden px-4 text-gray-500 hover:bg-slate-700 py-2 rounded-lg focus:outline-none">
@@ -404,9 +400,9 @@
 
                         <!-- pwnagotchi modal -->
                         <div id="pwnagotchi"
-                            class="mx-auto absolute inset-x-10 bottom-10 z-50 bg-white overflow-hidden shadow-lg h-64 hidden sm:w-4/5">
+                            class="mx-auto absolute inset-x-10 bottom-10 z-50 bg-white overflow-hidden shadow-lg h-72 hidden sm:w-4/5">
                             <iframe id="iframe_pwnagotchi" src="http://pwnagotchi.local:8080/"
-                                class="w-full h-72 -mt-10"></iframe>
+                                class="w-full h-80 -mt-10"></iframe>
                         </div>
 
                     </section>
@@ -908,10 +904,6 @@
         document.getElementById('navMapStyle').addEventListener('click', () => {
             changeMapStyle();
         });
-
-        // document.getElementById('navLogo').addEventListener('click', () => {
-        //     minimizeNav();
-        // });
 
         document.getElementById("buttonExecuteUpdate").addEventListener('click', () => {
             document.getElementById("updateModal").classList.add("hidden");
