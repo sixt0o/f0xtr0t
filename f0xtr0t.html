@@ -215,7 +215,7 @@
                     <div class="flex-shrink-0 px-4 flex items-center">
                         <img class="h-16 w-auto" src="https://raw.githubusercontent.com/sixt0o/f0xtr0t/main/fox.png"
                             alt="Workflow">
-                            <span class="text-slate-500 font-bold text-2xl ml-4">f0xtr0t</span>
+                        <span class="text-slate-500 font-bold text-2xl ml-4">f0xtr0t</span>
                     </div>
                     <div class="mt-5 flex-1 h-0 px-2 overflow-y-auto">
 
@@ -223,8 +223,7 @@
                         <aside class="block lg:hidden">
                             <div class="px-2">
                                 <dl class="mt-5 grid grid-cols-1 gap-2">
-                                    <div
-                                        class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
+                                    <div class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
                                             Total Handshakes
                                         </dt>
@@ -235,8 +234,7 @@
                                     </div>
                                 </dl>
                                 <dl class="mt-5 grid grid-cols-1 gap-2">
-                                    <div
-                                        class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
+                                    <div class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
                                             Latitude
                                         </dt>
@@ -247,8 +245,7 @@
                                     </div>
                                 </dl>
                                 <dl class="mt-5 grid grid-cols-1 gap-2">
-                                    <div
-                                        class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
+                                    <div class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
                                             Longitude
                                         </dt>
@@ -259,8 +256,7 @@
                                     </div>
                                 </dl>
                                 <dl class="mt-5 grid grid-cols-1 gap-2">
-                                    <div
-                                        class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
+                                    <div class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
                                             Altitude
                                         </dt>
@@ -271,8 +267,7 @@
                                     </div>
                                 </dl>
                                 <dl class="mt-5 grid grid-cols-1 gap-2">
-                                    <div
-                                        class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
+                                    <div class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
                                             Last GPS/AP Update
                                         </dt>
@@ -283,8 +278,7 @@
                                     </div>
                                 </dl>
                                 <dl class="mt-5 grid grid-cols-1 gap-2">
-                                    <div
-                                        class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
+                                    <div class="border-2 border-slate-900 border-b-slate-800 overflow-hidden py-2">
                                         <dt class="text-md font-medium text-slate-600 truncate">
                                             Version
                                         </dt>
@@ -343,17 +337,14 @@
             <div class="flex-1 flex items-stretch overflow-hidden relative">
 
                 <!-- Notification -->
-                <div id="notification"
-                    class="hidden absolute bottom-0 z-50 px-2 py-3 w-96">
+                <div id="notification" class="hidden absolute bottom-0 z-50 px-2 py-3 w-96">
                     <div class="w-full">
-                        <div
-                            class="max-w-sm w-full bg-amber-500 bg-opacity-90 shadow-lg rounded-lg overflow-hidden">
+                        <div class="max-w-sm w-full bg-amber-500 bg-opacity-90 shadow-lg rounded-lg overflow-hidden">
                             <div class="p-4">
                                 <div class="flex items-start">
                                     <div class="flex-shrink-0 bg-amber-700 rounded-full mt-1">
-                                        <svg class="h-12 w-12 text-amber-200"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor" aria-hidden="true">
+                                        <svg class="h-12 w-12 text-amber-200" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
@@ -374,7 +365,8 @@
 
                 <main class="flex-1 overflow-hidden relative">
                     <!-- GPSD warning -->
-                    <div class="bg-red-900 px-4 py-2 hiddens w-full absolute top-0 z-40 bg-opacity-90 shadow-lg" id="location_warning">
+                    <div class="bg-red-900 px-4 py-2 hiddens w-full absolute top-0 z-40 bg-opacity-90 shadow-lg"
+                        id="location_warning">
                         <div class="flex">
                             <div class="flex-shrink-0">
                                 <!-- Heroicon name: solid/exclamation -->
@@ -387,7 +379,7 @@
                             </div>
                             <div class="ml-3">
                                 <p class="text-md font-bold text-red-400 pt-1">
-                                    Location not found. Waiting for coordinates from GPSD...
+                                    Location not found. Waiting for coordinates from <span id="location_warning_provider"></span>...
                                 </p>
                             </div>
                         </div>
@@ -564,6 +556,7 @@
         var mapStyles = [Jawg_Matrix, Jawg_Streets, Topo];
         var currentMapStyleIndex = 0;
         var navMinimized = false;
+        var gpsProvider = null;
 
         var mymap = L.map('mapdiv', { zoomControl: false }).setView([39.82, -98.58], 5);
         L.control.zoom({
@@ -632,44 +625,65 @@
             });
         }
 
+        const updateMap = (coords) => {
+            latlong = new L.LatLng(coords.Latitude, coords.Longitude);
+            document.getElementById("current_latitude").innerHTML = coords.Latitude;
+            document.getElementById("current_longitude").innerHTML = coords.Longitude;
+            document.getElementById("current_altitude").innerHTML = coords.Altitude;
+            document.getElementById("current_latitude_menu").innerHTML = coords.Latitude;
+            document.getElementById("current_longitude_menu").innerHTML = coords.Longitude;
+            document.getElementById("current_altitude_menu").innerHTML = coords.Altitude;
+            if (coords.Latitude && coords.Longitude) {
+                if (!locationLoaded) {
+                    locationMarker = L.marker(latlong).addTo(mymap);
+                    mymap.flyTo(latlong, 18);
+                    setTimeout(() => {
+                        circleMarker = L.circle(latlong, {
+                            color: 'red',
+                            fillColor: 'f03',
+                            fillOpacity: 0.1,
+                            weight: 1,
+                            opacity: 0.75,
+                            radius: 50,
+                        }).setStyle({ 'className': 'radar' }).addTo(mymap)
+                    }, 5000);
+                    locationLoaded = true
+                } else {
+                    locationMarker.setLatLng(latlong);
+                    circleMarker.setLatLng(latlong);
+                    mymap.panTo(latlong);
+                }
+
+                document.getElementById("location_warning").classList.add("hidden");
+            } else {
+                document.getElementById("location_warning_provider").innerHTML(gpsProvider);
+                document.getElementById("location_warning").classList.remove("hidden");
+            }
+            loadPositions();
+        }
+
         const loadGpsCoords = () => {
             lastGPSUpdate = new Date();
-            loadJSON("/plugins/f0xtr0t/gps", (response) => {
-                coords = JSON.parse(response);
-                latlong = new L.LatLng(coords.Latitude, coords.Longitude);
-                document.getElementById("current_latitude").innerHTML = coords.Latitude;
-                document.getElementById("current_longitude").innerHTML = coords.Longitude;
-                document.getElementById("current_altitude").innerHTML = coords.Altitude;
-                document.getElementById("current_latitude_menu").innerHTML = coords.Latitude;
-                document.getElementById("current_longitude_menu").innerHTML = coords.Longitude;
-                document.getElementById("current_altitude_menu").innerHTML = coords.Altitude;
-                if (coords.Latitude && coords.Longitude) {
-                    if (!locationLoaded) {
-                        locationMarker = L.marker(latlong).addTo(mymap);
-                        mymap.flyTo(latlong, 18);
-                        setTimeout(() => {
-                            circleMarker = L.circle(latlong, {
-                                color: 'red',
-                                fillColor: 'f03',
-                                fillOpacity: 0.1,
-                                weight: 1,
-                                opacity: 0.75,
-                                radius: 50,
-                            }).setStyle({ 'className': 'radar' }).addTo(mymap)
-                        }, 5000);
-                        locationLoaded = true
-                    } else {
-                        locationMarker.setLatLng(latlong);
-                        circleMarker.setLatLng(latlong);
-                        mymap.panTo(latlong);
-                    }
+            switch (gpsProvider) {
+                case 'gpsd':
 
-                    document.getElementById("location_warning").classList.add("hidden");
-                } else {
-                    document.getElementById("location_warning").classList.remove("hidden");
-                }
-                loadPositions();
-            });
+                    loadJSON("/plugins/f0xtr0t/gpsd", (response) => {
+                        coords = JSON.parse(response);
+                        updateMap(coords);
+                    });
+
+                    break;
+                case 'pawgps':
+
+                    loadJSON("/plugins/f0xtr0t/pawgps", (response) => {
+                        coords = JSON.parse(response);
+                        updateMap(coords);
+                    });
+
+                    break;
+
+            }
+
         }
 
         const timeSince = (timeStamp) => {
@@ -858,6 +872,11 @@
         }
 
         loadGpsCoords();
+        loadJSON("/plugins/f0xtr0t/gpsprovider", function (response) {
+            // Are we using GPSD or PawGPS?
+            gpsProvider = JSON.parse(response);
+        });
+
         loadJSON("/plugins/f0xtr0t/hostname", function (response) {
             let hostname = JSON.parse(response);
             document.getElementById('iframe_pwnagotchi').src = `http://${hostname}.local:8080`;

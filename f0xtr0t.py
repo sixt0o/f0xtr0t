@@ -39,14 +39,14 @@ class GPSD:
 
 class f0xtr0t(plugins.Plugin):
     __author__ = 'https://github.com/sixt0o'
-    __version__ = '1.3.4-alpha'
+    __version__ = '1.3.5-alpha'
     __name__ = 'f0xtr0t'
     __license__ = 'GPL3'
     __description__ = 'a plugin for pwnagotchi that shows a openstreetmap with positions of ap-handshakes in your webbrowser. Based on the origional webgpsmaps'
 
     ALREADY_SENT = list()
     SKIP = list()
-    CURRENT_VERSION = 'v1.3.4-alpha'
+    CURRENT_VERSION = 'v1.3.5-alpha'
 
     def __init__(self):
         self.ready = False
@@ -97,11 +97,11 @@ class f0xtr0t(plugins.Plugin):
                     response_status = 200
                     response_mimetype = "application/xhtml+xml"
                     response_header_contenttype = 'text/html'
-                elif path.startswith('gps'):
-                    logging.info(f"[f0xtr0t] GPS request received, trying to load coords...")
+                elif path.startswith('gpsd'):
+                    logging.info(f"[f0xtr0t] GPSD request received, trying to load coords...")
                     try:
                         coords = self.gpsd.update_gps()
-                        logging.info(f"[f0xtr0t] GPS COORDS: {coords}")
+                        logging.info(f"[f0xtr0t] GPSD COORDS: {coords}")
                         response_data = json.dumps(coords)
                         response_status = 200
                         response_mimetype = "application/json"
@@ -109,9 +109,27 @@ class f0xtr0t(plugins.Plugin):
                     except Exception as error:
                         logging.error(f"[f0xtr0t] on_webhook all error: {error}")
                         return
+                elif path.startswith('pawgps'):
+                    logging.info(f"[f0xtr0t] PAWGPS request received, trying to load coords...")
+                    try:
+                        response = requests.get("http://192.168.44.1:8080/gps.xhtml")
+                        logging.info(f"[f0xtr0t] PAWGPS COORDS: {response.json()['Latitude']}:{response.json()['Longitude']}")
+                        response_data = json.dumps(response.json())
+                        response_status = 200
+                        response_mimetype = "application/json"
+                        response_header_contenttype = 'application/json'
+                    except Exception as error:
+                        logging.error(f"[f0xtr0t] Error checking for update: {error}")
+                        return
                 elif path.startswith('hostname'):
                     logging.info(f"[f0xtr0t] GPS COORDS: {socket.gethostname()}")
                     response_data = json.dumps(socket.gethostname())
+                    response_status = 200
+                    response_mimetype = "application/json"
+                    response_header_contenttype = 'application/json'
+                elif path.startswith('gpsprovider'):
+                    logging.info(f"[f0xtr0t] Got GPS Provider: {self.options['gpsprovider']}")
+                    response_data = json.dumps(self.options['gpsprovider'])
                     response_status = 200
                     response_mimetype = "application/json"
                     response_header_contenttype = 'application/json'
