@@ -101,7 +101,6 @@ class f0xtr0t(plugins.Plugin):
                     logging.info(f"[f0xtr0t] GPSD request received, trying to load coords...")
                     try:
                         coords = self.gpsd.update_gps()
-                        logging.info(f"[f0xtr0t] GPSD COORDS: {coords}")
                         response_data = json.dumps(coords)
                         response_status = 200
                         response_mimetype = "application/json"
@@ -113,7 +112,6 @@ class f0xtr0t(plugins.Plugin):
                     logging.info(f"[f0xtr0t] PAWGPS request received, trying to load coords...")
                     try:
                         response = requests.get("http://192.168.44.1:8080/gps.xhtml")
-                        logging.info(f"[f0xtr0t] PAWGPS COORDS: {response.json()['Latitude']}:{response.json()['Longitude']}")
                         response_data = json.dumps(response.json())
                         response_status = 200
                         response_mimetype = "application/json"
@@ -122,20 +120,17 @@ class f0xtr0t(plugins.Plugin):
                         logging.error(f"[f0xtr0t] Error checking for update: {error}")
                         return
                 elif path.startswith('hostname'):
-                    logging.info(f"[f0xtr0t] Hostname: {socket.gethostname()}")
                     response_data = json.dumps(socket.gethostname())
                     response_status = 200
                     response_mimetype = "application/json"
                     response_header_contenttype = 'application/json'
                 elif path.startswith('gpsprovider'):
-                    logging.info(f"[f0xtr0t] Got GPS Provider: {self.options['gpsprovider']}")
                     response_data = json.dumps(self.options['gpsprovider'])
                     response_status = 200
                     response_mimetype = "application/json"
                     response_header_contenttype = 'application/json'
                 elif path.startswith('currentversion'):
                     try:
-                        logging.info(f"[f0xtr0t] Current version: {self.CURRENT_VERSION}")
                         response_data = json.dumps(self.CURRENT_VERSION)
                         response_status = 200
                         response_mimetype = "application/json"
@@ -144,10 +139,8 @@ class f0xtr0t(plugins.Plugin):
                         logging.error(f"[f0xtr0t] Error getting version: {error}")
                         return
                 elif path.startswith('checkupdate'):
-                    logging.info(f"[f0xtr0t] Checking for new version...")
                     try:
                         response = requests.get("https://api.github.com/repos/sixt0o/f0xtr0t/releases/latest")
-                        logging.info(f"[f0xtr0t] Update version: {response.json()['tag_name']}")
                         response_data = json.dumps(response.json()['tag_name'])
                         response_status = 200
                         response_mimetype = "application/json"
@@ -156,12 +149,8 @@ class f0xtr0t(plugins.Plugin):
                         logging.error(f"[f0xtr0t] Error checking for update: {error}")
                         return
                 elif path.startswith('executeupdate'):
-                    logging.info("[f0xtr0t] Executing update...")
                     try:
-
                         response = requests.get("https://api.github.com/repos/sixt0o/f0xtr0t/releases/latest")
-                        logging.info(f"[f0xtr0t] Updating from zip ball: {response.json()['zipball_url']}")
-
                         plugin_dir = '/usr/local/share/pwnagotchi/installed-plugins/'
                         with urlopen(response.json()['zipball_url']) as zipresp:
                             with ZipFile(BytesIO(zipresp.read())) as zip_file:
