@@ -82,11 +82,6 @@ class f0xtr0t(plugins.Plugin):
         else:
             if request.method == "GET":
                 if path == '/' or not path:
-                    #init gpsd on first load
-                    try:
-                        self.gpsd = GPSD(self.options['gpsdhost'], self.options['gpsdport'])
-                    except Exception as error:
-                        logging.error(f"[f0xtr0t] GPS INIT / error: {error}")
                     # returns the html template
                     self.ALREADY_SENT = list()
                     try:
@@ -98,7 +93,6 @@ class f0xtr0t(plugins.Plugin):
                     response_mimetype = "application/xhtml+xml"
                     response_header_contenttype = 'text/html'
                 elif path.startswith('gpsd'):
-                    logging.info(f"[f0xtr0t] GPSD request received, trying to load coords...")
                     try:
                         coords = self.gpsd.update_gps()
                         response_data = json.dumps(coords)
@@ -109,7 +103,6 @@ class f0xtr0t(plugins.Plugin):
                         logging.error(f"[f0xtr0t] on_webhook all error: {error}")
                         return
                 elif path.startswith('pawgps'):
-                    logging.info(f"[f0xtr0t] PAWGPS request received, trying to load coords...")
                     try:
                         response = requests.get("http://192.168.44.1:8080/gps.xhtml")
                         response_data = json.dumps(response.json())
