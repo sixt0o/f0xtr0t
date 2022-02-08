@@ -4,9 +4,8 @@ Based on the original webgpsmap plugin, f0xtr0t is an enhanced version that give
 
 
 # Config
-main.plugins.f0xtr0t:
- - enabled: true
- - gpsprovider: "gpsd" or "pawgps"
- - gpsdhost: "127.0.0.1"
- - gpsdport: 2947
- - pawgpshost: "http://192.168.44.1:8080/gps.xhtml"
+main.plugins.f0xtr0t.enabled: true
+main.plugins.f0xtr0t.gpsprovider: "gpsd" or "pawgps"
+main.plugins.f0xtr0t.gpsdhost: "127.0.0.1"
+main.plugins.f0xtr0t.gpsdport: 2947
+main.plugins.f0xtr0t.pawgpshost: "http://192.168.44.1:8080/gps.xhtml"
