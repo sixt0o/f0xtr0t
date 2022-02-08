@@ -902,7 +902,7 @@
         loadGpsCoords();
         loadJSON("/plugins/f0xtr0t/gpsprovider", function (response) {
             // Are we using GPSD or PawGPS?
-            gpsProvider = JSON.parse(response);
+            gpsProvider = JSON.parse(response).toLowerCase();
         });
 
         loadJSON("/plugins/f0xtr0t/hostname", function (response) {
