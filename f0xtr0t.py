@@ -113,6 +113,7 @@ class f0xtr0t(plugins.Plugin):
                         logging.error(f"[f0xtr0t] Error checking for update: {error}")
                         return
                 elif path.startswith('hostname'):
+                    logging.info(f"[f0xtr0t] Got hostname: {socket.gethostname()}")
                     response_data = json.dumps(socket.gethostname())
                     response_status = 200
                     response_mimetype = "application/json"
