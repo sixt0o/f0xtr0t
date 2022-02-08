@@ -39,14 +39,14 @@ class GPSD:
 
 class f0xtr0t(plugins.Plugin):
     __author__ = 'https://github.com/sixt0o'
-    __version__ = '1.4.0-alpha'
+    __version__ = '1.3.9-alpha'
     __name__ = 'f0xtr0t'
     __license__ = 'GPL3'
     __description__ = 'a plugin for pwnagotchi that shows a openstreetmap with positions of ap-handshakes in your webbrowser. Based on the origional webgpsmaps'
 
     ALREADY_SENT = list()
     SKIP = list()
-    CURRENT_VERSION = 'v1.4.0-alpha'
+    CURRENT_VERSION = 'v1.3.9-alpha'
 
     def __init__(self):
         self.ready = False
@@ -82,6 +82,15 @@ class f0xtr0t(plugins.Plugin):
         else:
             if request.method == "GET":
                 if path == '/' or not path:
+                    #try init gpsd on first load
+                    try:
+                        if self.options['gpsprovider'] == 'gpsd':
+                            logging.info(f"[f0xtr0t] GPS INIT: gpsd")
+                            self.gpsd = GPSD(self.options['gpsdhost'], self.options['gpsdport'])
+                        else:
+                            logging.info(f"[f0xtr0t] GPS INIT: pawgps")
+                    except Exception as error:
+                        logging.error(f"[f0xtr0t] GPS INIT / error: {error}")
                     # returns the html template
                     self.ALREADY_SENT = list()
                     try:
@@ -113,12 +122,13 @@ class f0xtr0t(plugins.Plugin):
                         logging.error(f"[f0xtr0t] Error checking for update: {error}")
                         return
                 elif path.startswith('hostname'):
-                    logging.info(f"[f0xtr0t] Got hostname: {socket.gethostname()}")
+                    logging.info(f"[f0xtr0t] Hostname: {socket.gethostname()}")
                     response_data = json.dumps(socket.gethostname())
                     response_status = 200
                     response_mimetype = "application/json"
                     response_header_contenttype = 'application/json'
                 elif path.startswith('gpsprovider'):
+                    logging.info(f"[f0xtr0t] Got GPS Provider: {self.options['gpsprovider']}")
                     response_data = json.dumps(self.options['gpsprovider'])
                     response_status = 200
                     response_mimetype = "application/json"
@@ -133,8 +143,10 @@ class f0xtr0t(plugins.Plugin):
                         logging.error(f"[f0xtr0t] Error getting version: {error}")
                         return
                 elif path.startswith('checkupdate'):
+                    logging.info(f"[f0xtr0t] Checking for new version...")
                     try:
                         response = requests.get("https://api.github.com/repos/sixt0o/f0xtr0t/releases/latest")
+                        logging.info(f"[f0xtr0t] Update version: {response.json()['tag_name']}")
                         response_data = json.dumps(response.json()['tag_name'])
                         response_status = 200
                         response_mimetype = "application/json"
@@ -143,8 +155,12 @@ class f0xtr0t(plugins.Plugin):
                         logging.error(f"[f0xtr0t] Error checking for update: {error}")
                         return
                 elif path.startswith('executeupdate'):
+                    logging.info("[f0xtr0t] Executing update...")
                     try:
+
                         response = requests.get("https://api.github.com/repos/sixt0o/f0xtr0t/releases/latest")
+                        logging.info(f"[f0xtr0t] Updating from zip ball: {response.json()['zipball_url']}")
+
                         plugin_dir = '/usr/local/share/pwnagotchi/installed-plugins/'
                         with urlopen(response.json()['zipball_url']) as zipresp:
                             with ZipFile(BytesIO(zipresp.read())) as zip_file:
